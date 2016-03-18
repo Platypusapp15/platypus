@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="platypus" name="model.Subscripciones" optimistic-lock="version" table="subscripciones">
+    <composite-id class="model.SubscripcionesId" name="id">
+      <key-property name="idRestaurante" type="int">
+        <column name="id_restaurante"/>
+      </key-property>
+      <key-property name="idTipoSubscripcion" type="int">
+        <column name="id_tipoSubscripcion"/>
+      </key-property>
+    </composite-id>
+    <many-to-one class="model.Restaurantes" fetch="select" insert="false" name="restaurantes" update="false">
+      <column name="id_restaurante" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.SubscripcionesTipos" fetch="select" insert="false" name="subscripcionesTipos" update="false">
+      <column name="id_tipoSubscripcion" not-null="true"/>
+    </many-to-one>
+    <property name="fechaInicio" type="timestamp">
+      <column length="19" name="fecha_inicio" not-null="true"/>
+    </property>
+    <property name="fechaFinal" type="timestamp">
+      <column length="19" name="fecha_final" not-null="true"/>
+    </property>
+    <property name="activa" type="boolean">
+      <column name="activa" not-null="true"/>
+    </property>
+    
+    <!-- Named queries -->
+    <sql-query name="getAll">
+        <![CDATA[select * from Subscripciones s]]>
+    </sql-query>
+    
+  </class>
+</hibernate-mapping>

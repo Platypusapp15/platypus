@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/platypus</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="model/ComentariosLikes.hbm.xml" class="model.ComentariosLikes"/>
+    <mapping resource="model/RestaurantesLikes.hbm.xml" class="model.RestaurantesLikes"/>
+    <mapping resource="model/RestaurantesTipos.hbm.xml" class="model.RestaurantesTipos"/>
+    <mapping resource="model/Subscripciones.hbm.xml" class="model.Subscripciones"/>
+    <mapping resource="model/SubscripcionesTipos.hbm.xml" class="model.SubscripcionesTipos"/>
+    <mapping resource="model/Comentarios.hbm.xml" class="model.Comentarios"/>
+    <mapping resource="model/Reservas.hbm.xml" class="model.Reservas"/>
+    <mapping resource="model/UsuariosTipos.hbm.xml" class="model.UsuariosTipos"/>
+    <mapping resource="model/Rangos.hbm.xml" class="model.Rangos"/>
+    <mapping resource="model/Usuarios.hbm.xml" class="model.Usuarios"/>
+    <mapping resource="model/Consultas.hbm.xml" class="model.Consultas"/>
+    <mapping resource="model/Restaurantes.hbm.xml" class="model.Restaurantes"/>
+    <mapping resource="model/Direcciones.hbm.xml" class="model.Direcciones"/>
+    </session-factory>
+</hibernate-configuration>

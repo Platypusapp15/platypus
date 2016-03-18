@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="platypus" name="model.Comentarios" optimistic-lock="version" table="comentarios">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Comentarios" fetch="select" name="comentarios">
+      <column name="id_comentario">
+        <comment>Para indicar si un comentario es respuesta de otro</comment>
+      </column>
+    </many-to-one>
+    <many-to-one class="model.Restaurantes" fetch="select" name="restaurantes">
+      <column name="id_restaurante" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.Usuarios" fetch="select" name="usuarios">
+      <column name="id_usuario" not-null="true"/>
+    </many-to-one>
+    <property name="comentario" type="string">
+      <column name="comentario"/>
+    </property>
+    <property name="fechaHora" type="timestamp">
+      <column length="19" name="fechaHora" not-null="true">
+        <comment>Para ordenar comentarios y controlar actividad en un periodo de tiempo determinado</comment>
+      </column>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="comentarioses" table="comentarios">
+      <key>
+        <column name="id_comentario">
+          <comment>Para indicar si un comentario es respuesta de otro</comment>
+        </column>
+      </key>
+      <one-to-many class="model.Comentarios"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="comentariosLikeses" table="comentarios_likes">
+      <key>
+        <column name="id_comentario" not-null="true"/>
+      </key>
+      <one-to-many class="model.ComentariosLikes"/>
+    </set>
+    
+    <!-- Named queries -->
+    <sql-query name="getAll">
+        <![CDATA[select * from Comentarios c]]>
+    </sql-query>
+  </class>
+</hibernate-mapping>
