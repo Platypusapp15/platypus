@@ -5,21 +5,22 @@
  */
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.Subscripciones;
 import model.SubscripcionesTipos;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
 
 /**
  *
  * @author Seix
  */
-public class SubscripcionesDao extends PlatypusDao {
+public class SubscripcionesDao {
+
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public List<Subscripciones> getAll() {
-        List<Subscripciones> subscripciones = new ArrayList<>();
-        subscripciones = (List) executeNamedQuery("model.Subscripciones.getAll");
-        return subscripciones;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean create(Subscripciones subscripcion) {

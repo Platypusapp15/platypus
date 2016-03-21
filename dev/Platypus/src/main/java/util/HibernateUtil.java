@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import org.hibernate.SessionFactory;
@@ -12,7 +7,10 @@ import org.hibernate.cfg.Configuration;
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
  * object.
- *
+ * Esta clase se encarga de leer el fichero de configuración de Hibernate (Hibernate.cfg.xml)
+ * del que obtendrá datos como la cadena de conexión a la base de datos, nombre de usuario y contraseña,
+ * número de conexiones máximas, mínimas... entre otras cosas.
+ * 
  * @author Seix
  */
 public class HibernateUtil {

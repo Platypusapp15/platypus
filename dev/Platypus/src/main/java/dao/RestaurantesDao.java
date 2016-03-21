@@ -5,21 +5,22 @@
  */
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.Restaurantes;
 import model.RestaurantesTipos;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
 
 /**
  *
  * @author Seix
  */
-public class RestaurantesDao extends PlatypusDao {
+public class RestaurantesDao {
+
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public List<Restaurantes> getAll() {
-        List<Restaurantes> restaurantes = new ArrayList<>();
-        restaurantes = (List) executeNamedQuery("model.Restaurantes.getAll");
-        return restaurantes;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean create(Restaurantes restaurante) {

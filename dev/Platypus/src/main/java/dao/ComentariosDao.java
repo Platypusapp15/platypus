@@ -5,21 +5,21 @@
  */
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import model.Comentarios;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
 
 /**
  *
  * @author Seix
  */
-public class ComentariosDao extends PlatypusDao {
+public class ComentariosDao {
 
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    
     public List<Comentarios> getAll() {
-        
-        List<Comentarios> comentarios = new ArrayList<>();
-        comentarios = (List)executeNamedQuery("model.Comentarios.getAll");
-        return comentarios;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean create(Comentarios comentario) {

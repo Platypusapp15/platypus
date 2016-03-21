@@ -7,8 +7,10 @@
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/platypus</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">root</property>
+    <!-- Esto hará que se muestren las sentencias SQL en consola -->
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <!-- Relaciones entre ficheros de mapeo de tablas y las clases que las representan -->
     <mapping resource="model/ComentariosLikes.hbm.xml" class="model.ComentariosLikes"/>
     <mapping resource="model/RestaurantesLikes.hbm.xml" class="model.RestaurantesLikes"/>
     <mapping resource="model/RestaurantesTipos.hbm.xml" class="model.RestaurantesTipos"/>

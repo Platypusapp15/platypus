@@ -8,17 +8,19 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 import model.Rangos;
+import org.hibernate.SessionFactory;
+import util.HibernateUtil;
 
 /**
  *
  * @author Seix
  */
-public class RangosDao extends PlatypusDao {
+public class RangosDao {
+
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public List<Rangos> getAll() {
-        List<Rangos> rangos = new ArrayList<>();
-        rangos = (List) executeNamedQuery("model.Rangos.getAll");
-        return rangos;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean create(Rangos rango) {
