@@ -3,16 +3,19 @@ package services;
 import dao.EjemplosDao;
 import java.util.List;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import model.Usuarios;
 
 /**
- *
+ * 
  * @author Seix
  */
 
@@ -80,5 +83,31 @@ public class EjemploService {
     public List<Usuarios> obtenerAdministradoresCORRECTO(){
         return ejemplosDao.sinParametros();
     }
+    
+    // Paso de parámetros por Path
+    @GET 
+    @Path("/ejemplo/{id}") 
+    @Produces(MediaType.APPLICATION_JSON) 
+    public List<Usuarios> obtenerPorId(@PathParam("id") int id){
+        return ejemplosDao.sinParametros();
+    }
+    
+    // Paso de parámetros por formulario (no se muestra en el Path)
+    @GET 
+    @Path("/ejemplo/") 
+    @Produces(MediaType.APPLICATION_JSON) 
+    public List<Usuarios> obtenerPorNombre(@FormParam("nombre") String nombre){
+        return ejemplosDao.sinParametros();
+    }
+    
+    // En el caso del QueryParam, el Path es igual que el primero, pero la URL
+    // del cliente se verá: http://... .../ejemplo?apellido=[texto introducido]
+    @GET 
+    @Path("/ejemplo/{apellido}")  
+    @Produces(MediaType.APPLICATION_JSON) 
+    public List<Usuarios> obtenerPorApellido(@QueryParam("apellido") String apellido){
+        return ejemplosDao.sinParametros();
+    }
+    
     
 }
