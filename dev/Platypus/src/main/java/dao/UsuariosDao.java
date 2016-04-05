@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Usuarios;
 import model.UsuariosTipos;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -30,11 +31,12 @@ public class UsuariosDao {
 
         List<Usuarios> usuarios = new ArrayList<>();
         Session session = null;
-
+        
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            session.createSQLQuery("select * from usuarios");
+            Query query = session.createSQLQuery("select * from usuarios");
+            usuarios = query.list();
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -113,7 +115,7 @@ public class UsuariosDao {
      * base de datos.
      * @return True or False si la operación ha tenido éxito.
      */
-    public boolean update(UsuariosTipos tipo, UsuariosTipos updatedTipo) {
+    public boolean updateTipo(UsuariosTipos tipo, UsuariosTipos updatedTipo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -144,7 +146,11 @@ public class UsuariosDao {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            session.createSQLQuery("select * from Usuarios");
+            
+            Query query = session.createSQLQuery("select * from Usuarios u where u.nombre like :TEXTO or "
+                    + "u.apellido1 like :TEXTO or u.apellido2 like :TEXTO")
+                    .setString("TEXTO", text);
+            usuarios = query.list();
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -162,4 +168,36 @@ public class UsuariosDao {
         return usuarios;
     }
 
+    public Usuarios login(String email, String password){
+        
+        Usuarios usuario = null;
+        Session session = null;
+        
+        try {
+            List <Usuarios> usuarios = null;
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Query query = session.createSQLQuery("select * from Usuarios u where u.email=:EMAIL")
+                    .setString("EMAIL", email);
+            usuarios = query.list();
+            session.getTransaction().commit();
+            
+            if(!usuarios.isEmpty()){
+                usuario = usuarios.get(0);
+            }
+            
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return usuario;
+    }
 }

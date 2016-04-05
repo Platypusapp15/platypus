@@ -1,26 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-abr-2016 21:14:14 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="platypus" name="model.Rangos" optimistic-lock="version" table="rangos">
-    <id name="id" type="java.lang.Integer">
-      <column name="id"/>
-      <generator class="foreign">
-        <param name="property">usuarios</param>
-      </generator>
-    </id>
-    <one-to-one class="model.Usuarios" constrained="true" name="usuarios"/>
-    <property name="nombre" type="string">
-      <column length="100" name="nombre" not-null="true"/>
-    </property>
-    <property name="puntosNecesarios" type="int">
-      <column name="puntosNecesarios" not-null="true"/>
-    </property>
-    
-    <!-- Named queries -->
-    <sql-query name="getAll">
-        <![CDATA[select * from Rangos r]]>
-    </sql-query>
-    
-  </class>
+    <class name="model.Rangos" table="rangos" catalog="platypus" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" not-null="true" />
+        </property>
+        <property name="puntosNecesarios" type="int">
+            <column name="puntosNecesarios" not-null="true" />
+        </property>
+        <set name="usuarioses" table="usuarios" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_rango" not-null="true" />
+            </key>
+            <one-to-many class="model.Usuarios" />
+        </set>
+    </class>
 </hibernate-mapping>

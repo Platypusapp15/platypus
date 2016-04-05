@@ -3,6 +3,7 @@ package dao;
 import java.util.ArrayList;
 import java.util.List;
 import model.Usuarios;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import util.HibernateUtil;
@@ -28,7 +29,8 @@ public class EjemplosDao {
             session.beginTransaction();
             
             //Variación
-            session.createSQLQuery("select * from usuarios"); 
+            Query query = session.createSQLQuery("select * from usuarios");
+            usuarios = query.list(); 
             //Variación
             
             session.getTransaction().commit();
@@ -59,11 +61,12 @@ public class EjemplosDao {
             session.beginTransaction();
             
             //Variación
-            session.createSQLQuery("select * from usuarios u where u.nombre=:NOMBRE and u.apellido=:APELLIDO")
+            Query query = session.createSQLQuery("select * from usuarios u where u.nombre=:NOMBRE and u.apellido=:APELLIDO")
                     .setString("NOMBRE", nombre)
                     .setString("APELLIDO", apellido);
+            usuarios = query.list();
             //Variación
-                
+            
             session.getTransaction().commit();
 
         } catch (Exception e) {
