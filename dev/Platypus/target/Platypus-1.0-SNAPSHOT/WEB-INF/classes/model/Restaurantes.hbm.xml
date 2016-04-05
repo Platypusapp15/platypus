@@ -1,72 +1,77 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 03-abr-2016 21:14:14 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Restaurantes" table="restaurantes" catalog="platypus" optimistic-lock="version">
-        <id name="id" type="java.lang.Integer">
-            <column name="id" />
-            <generator class="identity" />
-        </id>
-        <many-to-one name="direcciones" class="model.Direcciones" fetch="select">
-            <column name="id_direccion" not-null="true" />
-        </many-to-one>
-        <many-to-one name="restaurantesTipos" class="model.RestaurantesTipos" fetch="select">
-            <column name="id_tipo" not-null="true" />
-        </many-to-one>
-        <many-to-one name="usuarios" class="model.Usuarios" fetch="select">
-            <column name="id_usuario" not-null="true" />
-        </many-to-one>
-        <property name="nombre" type="string">
-            <column name="nombre" not-null="true" />
-        </property>
-        <property name="descripcion" type="string">
-            <column name="descripcion" />
-        </property>
-        <property name="emailCorporativo" type="string">
-            <column name="emailCorporativo" />
-        </property>
-        <property name="plazas" type="java.lang.Integer">
-            <column name="plazas" />
-        </property>
-        <property name="horaApertura" type="timestamp">
-            <column name="horaApertura" length="19" />
-        </property>
-        <property name="horaCierre" type="timestamp">
-            <column name="horaCierre" length="19" />
-        </property>
-        <property name="telefono" type="java.lang.Integer">
-            <column name="telefono" />
-        </property>
-        <set name="comentarioses" table="comentarios" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_restaurante" not-null="true" />
-            </key>
-            <one-to-many class="model.Comentarios" />
-        </set>
-        <set name="restaurantesLikeses" table="restaurantes_likes" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_restaurante" not-null="true" />
-            </key>
-            <one-to-many class="model.RestaurantesLikes" />
-        </set>
-        <set name="reservases" table="reservas" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_restaurante" not-null="true" />
-            </key>
-            <one-to-many class="model.Reservas" />
-        </set>
-        <set name="subscripcioneses" table="subscripciones" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_restaurante" not-null="true" />
-            </key>
-            <one-to-many class="model.Subscripciones" />
-        </set>
-        <set name="consultases" table="consultas" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="id_restaurante" not-null="true" />
-            </key>
-            <one-to-many class="model.Consultas" />
-        </set>
-    </class>
+  <class catalog="platypus" name="model.Restaurantes" optimistic-lock="version" table="restaurantes">
+    <id name="id" type="java.lang.Integer">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.Direcciones" fetch="select" name="direcciones">
+      <column name="id_direccion" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.RestaurantesTipos" fetch="select" name="restaurantesTipos">
+      <column name="id_tipo" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.Usuarios" fetch="select" name="usuarios">
+      <column name="id_usuario" not-null="true"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column name="nombre" not-null="true"/>
+    </property>
+    <property name="descripcion" type="string">
+      <column name="descripcion"/>
+    </property>
+    <property name="emailCorporativo" type="string">
+      <column name="emailCorporativo"/>
+    </property>
+    <property name="plazas" type="java.lang.Integer">
+      <column name="plazas"/>
+    </property>
+    <property name="horaApertura" type="timestamp">
+      <column length="19" name="horaApertura"/>
+    </property>
+    <property name="horaCierre" type="timestamp">
+      <column length="19" name="horaCierre"/>
+    </property>
+    <property name="telefono" type="java.lang.Integer">
+      <column name="telefono"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="comentarioses" table="comentarios">
+      <key>
+        <column name="id_restaurante" not-null="true"/>
+      </key>
+      <one-to-many class="model.Comentarios"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="restaurantesLikeses" table="restaurantes_likes">
+      <key>
+        <column name="id_restaurante" not-null="true"/>
+      </key>
+      <one-to-many class="model.RestaurantesLikes"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="reservases" table="reservas">
+      <key>
+        <column name="id_restaurante" not-null="true"/>
+      </key>
+      <one-to-many class="model.Reservas"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="subscripcioneses" table="subscripciones">
+      <key>
+        <column name="id_restaurante" not-null="true"/>
+      </key>
+      <one-to-many class="model.Subscripciones"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="consultases" table="consultas">
+      <key>
+        <column name="id_restaurante" not-null="true"/>
+      </key>
+      <one-to-many class="model.Consultas"/>
+    </set>
+    
+    <!-- Named queries -->
+    <sql-query name="getAll">
+        <![CDATA[select * from Restaurantes r]]>
+    </sql-query>
+    
+  </class>
 </hibernate-mapping>
