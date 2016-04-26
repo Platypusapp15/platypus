@@ -1,5 +1,5 @@
 package model;
-// Generated 13-mar-2016 20:56:27 by Hibernate Tools 4.3.1
+// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,8 +14,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Usuarios implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     private Integer id;
+    private Direcciones direcciones;
+    private Rangos rangos;
     private UsuariosTipos usuariosTipos;
     private String email;
     private String password;
@@ -25,31 +27,29 @@ public class Usuarios implements java.io.Serializable {
     private String sexo;
     private Date fechaNacimiento;
     private Float puntos;
-    private int idRango;
-    private Integer idDireccion;
     private int contadorLogins;
     private Date fechaUltimoLogin;
     private Set restaurantesLikeses = new HashSet(0);
     private Set comentarioses = new HashSet(0);
     private Set reservases = new HashSet(0);
     private Set comentariosLikeses = new HashSet(0);
-    private Direcciones direcciones;
     private Set restauranteses = new HashSet(0);
-    private Rangos rangos;
     private Set consultases = new HashSet(0);
 
     public Usuarios() {
     }
-    
-    public Usuarios(UsuariosTipos usuariosTipos, String email, String password, int idRango, int contadorLogins) {
+
+    public Usuarios(Rangos rangos, UsuariosTipos usuariosTipos, String email, String password, int contadorLogins) {
+        this.rangos = rangos;
         this.usuariosTipos = usuariosTipos;
         this.email = email;
         this.password = password;
-        this.idRango = idRango;
         this.contadorLogins = contadorLogins;
     }
 
-    public Usuarios(UsuariosTipos usuariosTipos, String email, String password, String nombre, String apellido1, String apellido2, String sexo, Date fechaNacimiento, Float puntos, int idRango, Integer idDireccion, int contadorLogins, Date fechaUltimoLogin, Set restaurantesLikeses, Set comentarioses, Set reservases, Set comentariosLikeses, Direcciones direcciones, Set restauranteses, Rangos rangos, Set consultases) {
+    public Usuarios(Direcciones direcciones, Rangos rangos, UsuariosTipos usuariosTipos, String email, String password, String nombre, String apellido1, String apellido2, String sexo, Date fechaNacimiento, Float puntos, int contadorLogins, Date fechaUltimoLogin, Set restaurantesLikeses, Set comentarioses, Set reservases, Set comentariosLikeses, Set restauranteses, Set consultases) {
+        this.direcciones = direcciones;
+        this.rangos = rangos;
         this.usuariosTipos = usuariosTipos;
         this.email = email;
         this.password = password;
@@ -59,17 +59,13 @@ public class Usuarios implements java.io.Serializable {
         this.sexo = sexo;
         this.fechaNacimiento = fechaNacimiento;
         this.puntos = puntos;
-        this.idRango = idRango;
-        this.idDireccion = idDireccion;
         this.contadorLogins = contadorLogins;
         this.fechaUltimoLogin = fechaUltimoLogin;
         this.restaurantesLikeses = restaurantesLikeses;
         this.comentarioses = comentarioses;
         this.reservases = reservases;
         this.comentariosLikeses = comentariosLikeses;
-        this.direcciones = direcciones;
         this.restauranteses = restauranteses;
-        this.rangos = rangos;
         this.consultases = consultases;
     }
 
@@ -80,6 +76,24 @@ public class Usuarios implements java.io.Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @XmlElement
+    public Direcciones getDirecciones() {
+        return this.direcciones;
+    }
+
+    public void setDirecciones(Direcciones direcciones) {
+        this.direcciones = direcciones;
+    }
+    
+    @XmlElement
+    public Rangos getRangos() {
+        return this.rangos;
+    }
+
+    public void setRangos(Rangos rangos) {
+        this.rangos = rangos;
     }
 
     @XmlElement
@@ -164,24 +178,6 @@ public class Usuarios implements java.io.Serializable {
     }
 
     @XmlElement
-    public int getIdRango() {
-        return this.idRango;
-    }
-
-    public void setIdRango(int idRango) {
-        this.idRango = idRango;
-    }
-
-    @XmlElement
-    public Integer getIdDireccion() {
-        return this.idDireccion;
-    }
-
-    public void setIdDireccion(Integer idDireccion) {
-        this.idDireccion = idDireccion;
-    }
-
-    @XmlElement
     public int getContadorLogins() {
         return this.contadorLogins;
     }
@@ -199,7 +195,6 @@ public class Usuarios implements java.io.Serializable {
         this.fechaUltimoLogin = fechaUltimoLogin;
     }
 
-    @XmlElement
     public Set getRestaurantesLikeses() {
         return this.restaurantesLikeses;
     }
@@ -208,7 +203,6 @@ public class Usuarios implements java.io.Serializable {
         this.restaurantesLikeses = restaurantesLikeses;
     }
 
-    @XmlElement
     public Set getComentarioses() {
         return this.comentarioses;
     }
@@ -217,7 +211,6 @@ public class Usuarios implements java.io.Serializable {
         this.comentarioses = comentarioses;
     }
 
-    @XmlElement
     public Set getReservases() {
         return this.reservases;
     }
@@ -226,7 +219,6 @@ public class Usuarios implements java.io.Serializable {
         this.reservases = reservases;
     }
 
-    @XmlElement
     public Set getComentariosLikeses() {
         return this.comentariosLikeses;
     }
@@ -235,16 +227,6 @@ public class Usuarios implements java.io.Serializable {
         this.comentariosLikeses = comentariosLikeses;
     }
 
-    @XmlElement
-    public Direcciones getDirecciones() {
-        return this.direcciones;
-    }
-
-    public void setDirecciones(Direcciones direcciones) {
-        this.direcciones = direcciones;
-    }
-
-    @XmlElement
     public Set getRestauranteses() {
         return this.restauranteses;
     }
@@ -253,16 +235,6 @@ public class Usuarios implements java.io.Serializable {
         this.restauranteses = restauranteses;
     }
 
-    @XmlElement
-    public Rangos getRangos() {
-        return this.rangos;
-    }
-
-    public void setRangos(Rangos rangos) {
-        this.rangos = rangos;
-    }
-
-    @XmlElement
     public Set getConsultases() {
         return this.consultases;
     }

@@ -24,8 +24,8 @@ public class Utils {
     }
     /**
      * Compara una contraseña sin encriptar, la encripta y la compara con la original.
-     * @param password Password de referencia
-     * @param passwordComparar Password recibido
+     * @param password Password de referencia ya encriptado
+     * @param passwordComparar Password recibido sin ecriptar
      * @return True or False si hay coincidencia
      */
     public static boolean compararPassword(String password, String passwordComparar){

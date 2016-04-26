@@ -1,5 +1,5 @@
 package model;
-// Generated 13-mar-2016 20:56:27 by Hibernate Tools 4.3.1
+// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,21 +11,21 @@ public class ConsultasId implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int idUsuario;
-    private int idRestaurante;
+     private int idUsuario;
+     private int idRestaurante;
 
     public ConsultasId() {
     }
 
     public ConsultasId(int idUsuario, int idRestaurante) {
-        this.idUsuario = idUsuario;
-        this.idRestaurante = idRestaurante;
+       this.idUsuario = idUsuario;
+       this.idRestaurante = idRestaurante;
     }
-
+   
     public int getIdUsuario() {
         return this.idUsuario;
     }
-
+    
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
@@ -33,12 +33,12 @@ public class ConsultasId implements java.io.Serializable {
     public int getIdRestaurante() {
         return this.idRestaurante;
     }
-
+    
     public void setIdRestaurante(int idRestaurante) {
         this.idRestaurante = idRestaurante;
     }
 
-    public boolean equals(Object other) {
+   public boolean equals(Object other) {
         if ((this == other)) {
             return true;
         }
@@ -49,17 +49,17 @@ public class ConsultasId implements java.io.Serializable {
             return false;
         }
         ConsultasId castOther = (ConsultasId) other;
-
+         
         return (this.getIdUsuario() == castOther.getIdUsuario())
                 && (this.getIdRestaurante() == castOther.getIdRestaurante());
-    }
-
-    public int hashCode() {
-        int result = 17;
-
-        result = 37 * result + this.getIdUsuario();
-        result = 37 * result + this.getIdRestaurante();
-        return result;
-    }
+   }
+   
+   public int hashCode() {
+         int result = 17;
+         
+         result = 37 * result + this.getIdUsuario();
+         result = 37 * result + this.getIdRestaurante();
+         return result;
+   }   
 
 }

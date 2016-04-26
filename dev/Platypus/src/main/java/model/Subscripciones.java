@@ -1,5 +1,5 @@
 package model;
-// Generated 13-mar-2016 20:56:27 by Hibernate Tools 4.3.1
+// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,37 +12,36 @@ public class Subscripciones implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private SubscripcionesId id;
-    private Restaurantes restaurantes;
-    private SubscripcionesTipos subscripcionesTipos;
-    private Date fechaInicio;
-    private Date fechaFinal;
-    private boolean activa;
+     private SubscripcionesId id;
+     private Restaurantes restaurantes;
+     private SubscripcionesTipos subscripcionesTipos;
+     private Date fechaInicio;
+     private Date fechaFinal;
+     private boolean activa;
 
     public Subscripciones() {
     }
 
     public Subscripciones(SubscripcionesId id, Restaurantes restaurantes, SubscripcionesTipos subscripcionesTipos, Date fechaInicio, Date fechaFinal, boolean activa) {
-        this.id = id;
-        this.restaurantes = restaurantes;
-        this.subscripcionesTipos = subscripcionesTipos;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinal = fechaFinal;
-        this.activa = activa;
+       this.id = id;
+       this.restaurantes = restaurantes;
+       this.subscripcionesTipos = subscripcionesTipos;
+       this.fechaInicio = fechaInicio;
+       this.fechaFinal = fechaFinal;
+       this.activa = activa;
     }
-
+   
     public SubscripcionesId getId() {
         return this.id;
     }
-
+    
     public void setId(SubscripcionesId id) {
         this.id = id;
     }
-
     public Restaurantes getRestaurantes() {
         return this.restaurantes;
     }
-
+    
     public void setRestaurantes(Restaurantes restaurantes) {
         this.restaurantes = restaurantes;
     }
@@ -50,7 +49,7 @@ public class Subscripciones implements java.io.Serializable {
     public SubscripcionesTipos getSubscripcionesTipos() {
         return this.subscripcionesTipos;
     }
-
+    
     public void setSubscripcionesTipos(SubscripcionesTipos subscripcionesTipos) {
         this.subscripcionesTipos = subscripcionesTipos;
     }
@@ -58,7 +57,7 @@ public class Subscripciones implements java.io.Serializable {
     public Date getFechaInicio() {
         return this.fechaInicio;
     }
-
+    
     public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
@@ -66,7 +65,7 @@ public class Subscripciones implements java.io.Serializable {
     public Date getFechaFinal() {
         return this.fechaFinal;
     }
-
+    
     public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
@@ -74,7 +73,7 @@ public class Subscripciones implements java.io.Serializable {
     public boolean isActiva() {
         return this.activa;
     }
-
+    
     public void setActiva(boolean activa) {
         this.activa = activa;
     }

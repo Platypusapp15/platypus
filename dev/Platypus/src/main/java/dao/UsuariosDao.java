@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Usuarios;
 import model.UsuariosTipos;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import util.HibernateUtil;
+import util.Utils;
 
 /**
  *
@@ -170,6 +173,7 @@ public class UsuariosDao {
 
     public Usuarios login(String email, String password){
         
+        List<Usuarios> res = null;
         Usuarios usuario = null;
         Session session = null;
         
@@ -177,13 +181,21 @@ public class UsuariosDao {
             List <Usuarios> usuarios = null;
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Query query = session.createSQLQuery("select * from Usuarios u where u.email=:EMAIL")
-                    .setString("EMAIL", email);
-            usuarios = query.list();
-            session.getTransaction().commit();
             
-            if(!usuarios.isEmpty()){
-                usuario = usuarios.get(0);
+            Criteria criteria = session.createCriteria(Usuarios.class)
+                    .add(Restrictions.like("email", email));
+            usuario = (Usuarios) criteria.uniqueResult();
+            
+//            Query query = session.createSQLQuery("select * from usuarios u where u.email=:EMAIL")
+//                    .setParameter("EMAIL", email);
+//            
+//            res = query.list();
+//            
+//            usuario = (Usuarios) res.get(0);
+            session.getTransaction().commit();
+               
+            if(usuario != null && !Utils.compararPassword(usuario.getPassword(), password)){
+                usuario = null;
             }
             
         } catch (Exception e) {
@@ -199,5 +211,31 @@ public class UsuariosDao {
         }
 
         return usuario;
+    }
+    
+    //TODO
+    public boolean logout(String email){
+        
+        boolean loggedout = false;
+        Usuarios usuario = null;
+        Session session = null;
+        
+        try {
+        
+            loggedout = true;
+            
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return loggedout;
     }
 }

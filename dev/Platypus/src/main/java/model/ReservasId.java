@@ -1,5 +1,5 @@
 package model;
-// Generated 13-mar-2016 20:56:27 by Hibernate Tools 4.3.1
+// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
 
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -12,23 +12,23 @@ public class ReservasId implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int idUsuario;
-    private int idRestaurante;
-    private Date fecha;
+     private int idUsuario;
+     private int idRestaurante;
+     private Date fecha;
 
     public ReservasId() {
     }
 
     public ReservasId(int idUsuario, int idRestaurante, Date fecha) {
-        this.idUsuario = idUsuario;
-        this.idRestaurante = idRestaurante;
-        this.fecha = fecha;
+       this.idUsuario = idUsuario;
+       this.idRestaurante = idRestaurante;
+       this.fecha = fecha;
     }
-
+   
     public int getIdUsuario() {
         return this.idUsuario;
     }
-
+    
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
@@ -36,7 +36,7 @@ public class ReservasId implements java.io.Serializable {
     public int getIdRestaurante() {
         return this.idRestaurante;
     }
-
+    
     public void setIdRestaurante(int idRestaurante) {
         this.idRestaurante = idRestaurante;
     }
@@ -44,12 +44,12 @@ public class ReservasId implements java.io.Serializable {
     public Date getFecha() {
         return this.fecha;
     }
-
+    
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
-    public boolean equals(Object other) {
+   public boolean equals(Object other) {
         if ((this == other)) {
             return true;
         }
@@ -60,19 +60,19 @@ public class ReservasId implements java.io.Serializable {
             return false;
         }
         ReservasId castOther = (ReservasId) other;
-
+         
         return (this.getIdUsuario() == castOther.getIdUsuario())
                 && (this.getIdRestaurante() == castOther.getIdRestaurante())
                 && ((this.getFecha() == castOther.getFecha()) || (this.getFecha() != null && castOther.getFecha() != null && this.getFecha().equals(castOther.getFecha())));
-    }
-
-    public int hashCode() {
-        int result = 17;
-
-        result = 37 * result + this.getIdUsuario();
-        result = 37 * result + this.getIdRestaurante();
+   }
+   
+   public int hashCode() {
+         int result = 17;
+         
+         result = 37 * result + this.getIdUsuario();
+         result = 37 * result + this.getIdRestaurante();
         result = 37 * result + (getFecha() == null ? 0 : this.getFecha().hashCode());
-        return result;
-    }
+         return result;
+   }   
 
 }

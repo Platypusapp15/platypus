@@ -22,7 +22,5 @@ public final class Defs {
    public final static int INVALID_SUBSCRIPCION_TIPO_ID = -1;
    public final static int INVALID_USUARIO_ID = -1;
    public final static int INVALID_USUARIO_TIPO_ID = -1;
-   
-   private final static String testGithub = "Nada que hacer";
-   private final static String testLocalGithub = "";
+ 
 }

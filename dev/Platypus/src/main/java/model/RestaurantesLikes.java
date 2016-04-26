@@ -1,5 +1,5 @@
 package model;
-// Generated 13-mar-2016 20:56:27 by Hibernate Tools 4.3.1
+// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,25 +11,25 @@ public class RestaurantesLikes implements java.io.Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private RestaurantesLikesId id;
-    private Restaurantes restaurantes;
-    private Usuarios usuarios;
-    private boolean like;
+     private RestaurantesLikesId id;
+     private Restaurantes restaurantes;
+     private Usuarios usuarios;
+     private boolean like;
 
     public RestaurantesLikes() {
     }
 
     public RestaurantesLikes(RestaurantesLikesId id, Restaurantes restaurantes, Usuarios usuarios, boolean like) {
-        this.id = id;
-        this.restaurantes = restaurantes;
-        this.usuarios = usuarios;
-        this.like = like;
+       this.id = id;
+       this.restaurantes = restaurantes;
+       this.usuarios = usuarios;
+       this.like = like;
     }
-
+   
     public RestaurantesLikesId getId() {
         return this.id;
     }
-
+    
     public void setId(RestaurantesLikesId id) {
         this.id = id;
     }
@@ -37,7 +37,7 @@ public class RestaurantesLikes implements java.io.Serializable {
     public Restaurantes getRestaurantes() {
         return this.restaurantes;
     }
-
+    
     public void setRestaurantes(Restaurantes restaurantes) {
         this.restaurantes = restaurantes;
     }
@@ -45,7 +45,7 @@ public class RestaurantesLikes implements java.io.Serializable {
     public Usuarios getUsuarios() {
         return this.usuarios;
     }
-
+    
     public void setUsuarios(Usuarios usuarios) {
         this.usuarios = usuarios;
     }
@@ -53,7 +53,7 @@ public class RestaurantesLikes implements java.io.Serializable {
     public boolean isLike() {
         return this.like;
     }
-
+    
     public void setLike(boolean like) {
         this.like = like;
     }
