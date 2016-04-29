@@ -1,24 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="platypus" name="model.RestaurantesLikes" optimistic-lock="version" table="restaurantes_likes">
-    <composite-id class="model.RestaurantesLikesId" name="id">
-      <key-property name="idUsuario" type="int">
-        <column name="id_usuario"/>
-      </key-property>
-      <key-property name="idRestaurante" type="int">
-        <column name="id_restaurante"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="model.Restaurantes" fetch="select" insert="false" name="restaurantes" update="false">
-      <column name="id_restaurante" not-null="true"/>
-    </many-to-one>
-    <many-to-one class="model.Usuarios" fetch="select" insert="false" name="usuarios" update="false">
-      <column name="id_usuario" not-null="true"/>
-    </many-to-one>
-    <property name="like" type="boolean">
-      <column name="like" not-null="true"/>
-    </property>
-  </class>
+    <class name="model.RestaurantesLikes" table="restaurantes_likes" catalog="platypus_2_1" optimistic-lock="version">
+        <composite-id name="id" class="model.RestaurantesLikesId">
+            <key-property name="idUsuario" type="int">
+                <column name="id_usuario" />
+            </key-property>
+            <key-property name="idRestaurante" type="int">
+                <column name="id_restaurante" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="restaurantes" class="model.Restaurantes" update="false" insert="false" fetch="join">
+            <column name="id_restaurante" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuarios" class="model.Usuarios" update="false" insert="false" fetch="join">
+            <column name="id_usuario" not-null="true" />
+        </many-to-one>
+        <property name="like" type="boolean">
+            <column name="like" not-null="true" />
+        </property>
+    </class>
 </hibernate-mapping>

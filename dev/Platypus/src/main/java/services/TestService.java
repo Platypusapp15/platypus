@@ -5,7 +5,7 @@
  */
 package services;
 
-import java.sql.Date;
+import java.util.GregorianCalendar;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -54,17 +54,17 @@ public class TestService {
     private SubscripcionesTipos tipoSubs2 = new SubscripcionesTipos(2, "Simple-Plus", 45, 13.00F);
     private SubscripcionesTipos tipoSubs3 = new SubscripcionesTipos(3, "Simple-Gold", 60, 15.00F);
 
-    private Date d1 = new Date(1991, 3, 20);
-    private Date d2 = new Date(1964, 3, 27);
-    private Date d3 = new Date(1991, 1, 30);
+    private GregorianCalendar d1 = new GregorianCalendar(1991, 3, 20);
+    private GregorianCalendar d2 = new GregorianCalendar(1964, 3, 27);
+    private GregorianCalendar d3 = new GregorianCalendar(1991, 1, 30);
 
-    private Usuarios usu1 = new Usuarios(direccion1, rango1, tipoUsu1, "seix@live.com", Utils.encriptarPassword("password"), "Iván", "Mesa", "Martín", "Hombre", d1, 1F, 0, null, null, null, null, null, null, null);
-    private Usuarios usu2 = new Usuarios(direccion2, rango2, tipoUsu2, "pepe@live.com", Utils.encriptarPassword("password"), "Pepe", "Mesa", "Martín", "Hombre", d2, 1F, 0, null, null, null, null, null, null, null);
-    private Usuarios usu3 = new Usuarios(direccion3, rango1, tipoUsu3, "chef@live.com", Utils.encriptarPassword("password"), "Chef", "De", "Restaurante", "Mujer", d3, 1F, 0, null, null, null, null, null, null, null);
+    private Usuarios usu1 = new Usuarios(direccion1, rango1, tipoUsu1, "seix@live.com", Utils.encriptarPassword("password"), "Iván", "Mesa", "Martín", "Hombre", d1.getTime(), 1F, 0, null, null, null, null, null, null, null);
+    private Usuarios usu2 = new Usuarios(direccion2, rango2, tipoUsu2, "pepe@live.com", Utils.encriptarPassword("password"), "Pepe", "Mesa", "Martín", "Hombre", d2.getTime(), 1F, 0, null, null, null, null, null, null, null);
+    private Usuarios usu3 = new Usuarios(direccion3, rango1, tipoUsu3, "chef@live.com", Utils.encriptarPassword("password"), "Chef", "De", "Restaurante", "Mujer", d3.getTime(), 1F, 0, null, null, null, null, null, null, null);
 
-    private Restaurantes rest1 = new Restaurantes(direccion2, tipoRest1, usu3, "Can Ramón", "Con terraza interior y 75 plazas", "canramon@gmail.com", 75, d3, d3, 934258712, null, null, null, null, null);
-    private Restaurantes rest2 = new Restaurantes(direccion2, tipoRest2, usu3, "Picadero", "pepe", "picadero@gmail.com", 185, d3, d3, 934258777, null, null, null, null, null);
-    private Restaurantes rest3 = new Restaurantes(direccion2, tipoRest3, usu3, "St Fost", "Con terraza exterior", "stfost@gmail.com", 150, d3, d3, 934258333, null, null, null, null, null);
+    private Restaurantes rest1 = new Restaurantes(direccion2, tipoRest1, usu3, "Can Ramón", "Con terraza interior y 75 plazas", "canramon@gmail.com", 75, d3.getTime(), d3.getTime(), 934258712, null, null, null, null, null);
+    private Restaurantes rest2 = new Restaurantes(direccion2, tipoRest2, usu3, "Picadero", "pepe", "picadero@gmail.com", 185, d3.getTime(), d3.getTime(), 934258777, null, null, null, null, null);
+    private Restaurantes rest3 = new Restaurantes(direccion2, tipoRest3, usu3, "St Fost", "Con terraza exterior", "stfost@gmail.com", 150, d3.getTime(), d3.getTime(), 934258333, null, null, null, null, null);
 
     // TEST OK!
     @GET

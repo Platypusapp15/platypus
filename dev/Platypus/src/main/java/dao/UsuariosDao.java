@@ -6,7 +6,9 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import model.Rangos;
 import model.Usuarios;
 import model.UsuariosTipos;
 import org.hibernate.Criteria;
@@ -34,12 +36,12 @@ public class UsuariosDao {
 
         List<Usuarios> usuarios = new ArrayList<>();
         Session session = null;
-        
+
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            Query query = session.createSQLQuery("select * from usuarios");
-            usuarios = query.list();
+            Criteria critera = session.createCriteria(Usuarios.class);
+            usuarios = critera.list();
             session.getTransaction().commit();
 
         } catch (Exception e) {
@@ -57,13 +59,104 @@ public class UsuariosDao {
     }
 
     /**
-     * Crea un usuario en la BD si no existe.
+     * Crea un usuario en la BD si no existe. Recibe todos los datos relacionados con el usuario.
+     * Primero buscará si existe el email en algún registro de la base de datos, de no encontrarlo, 
+     * encriptará la contraseña (que ha de recibir sin encriptar) para después persistir el nuevo
+     * usario.
      *
      * @param usuario Objeto usuario que va a ser creado en la base de datos.
      * @return True or False si la operación ha tenido éxito.
      */
     public boolean create(Usuarios usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        boolean creado = false;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            //Primero comprobamos que el email no existe en la BD
+            Criteria criteria = session.createCriteria(Usuarios.class).add(Restrictions.like("email", usuario.getEmail()));
+            if (criteria.uniqueResult() == null) {
+                
+                usuario.setPassword(Utils.encriptarPassword(usuario.getPassword()));
+                
+                //Persistencia de datos
+                session.persist(usuario);
+                session.getTransaction().commit();
+                creado = true;
+            }
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+            creado = false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return creado;
+    }
+
+    /**
+     * Crea un usuario en la BD si no existe. Primero buscará si existe el email
+     * en algún registro de la base de datos, de no encontrarlo, obtendrá el
+     * tipo de usuario de la base de datos para relacionarlo con el nuevo
+     * usuario. Aquí se encripta la contraseña antes de ser almacenado el nuevo
+     * usuario en la base de datos.
+     *
+     * @param email String correo electrónico a registrar.
+     * @param password String contraseña aún sin encriptar.
+     * @param idTipoUsuario int identificador del tipo de usuario a persistir.
+     * @return True or False si la operación ha tenido éxito.
+     */
+    public boolean create(String email, String password, int idTipoUsuario) {
+
+        boolean creado = false;
+        Usuarios usuario = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            //Primero comprobamos que el email no existe en la BD
+            Criteria criteria = session.createCriteria(Usuarios.class).add(Restrictions.like("email", email));
+            if (criteria.uniqueResult() == null) {
+                //Obtenemos el tipo de usuario
+                UsuariosTipos tipoUsuario = (UsuariosTipos) session.get(UsuariosTipos.class, idTipoUsuario);
+
+                //Ya que estamos creando un usuario nuevo, asignaremos automáticamente el rango más bajo.
+                Rangos rango = (Rangos) session.get(Rangos.class, 2);
+
+                //Asignamos valores
+                usuario.setEmail(email);
+                usuario.setPassword(Utils.encriptarPassword(password));
+                usuario.setUsuariosTipos(tipoUsuario);
+                usuario.setPuntos(1F);
+                usuario.setRangos(rango);
+
+                //Persistencia de datos
+                session.persist(usuario);
+                session.getTransaction().commit();
+                creado = true;
+            }
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+            creado = false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return creado;
     }
 
     /**
@@ -149,7 +242,7 @@ public class UsuariosDao {
         try {
             session = sessionFactory.openSession();
             session.beginTransaction();
-            
+
             Query query = session.createSQLQuery("select * from Usuarios u where u.nombre like :TEXTO or "
                     + "u.apellido1 like :TEXTO or u.apellido2 like :TEXTO")
                     .setString("TEXTO", text);
@@ -171,33 +264,38 @@ public class UsuariosDao {
         return usuarios;
     }
 
-    public Usuarios login(String email, String password){
-        
-        List<Usuarios> res = null;
+    /**
+     * Verifica las credenciales del usuario. Si son correctas se registrará en
+     * la base de datos la fecha.
+     * 
+     * @param email String email del usuario a verificar
+     * @param password String contraseña sin encriptar del usuario a verificar
+     * @return Objeto Usuario con los datos de éste si la verificación ha tenido
+     * éxito o null.
+     */
+    public Usuarios login(String email, String password) {
+
         Usuarios usuario = null;
         Session session = null;
-        
+
         try {
-            List <Usuarios> usuarios = null;
             session = sessionFactory.openSession();
             session.beginTransaction();
-            
+
             Criteria criteria = session.createCriteria(Usuarios.class)
                     .add(Restrictions.like("email", email));
+            criteria.add(Restrictions.like("passord", Utils.encriptarPassword(password)));
             usuario = (Usuarios) criteria.uniqueResult();
-            
-//            Query query = session.createSQLQuery("select * from usuarios u where u.email=:EMAIL")
-//                    .setParameter("EMAIL", email);
-//            
-//            res = query.list();
-//            
-//            usuario = (Usuarios) res.get(0);
             session.getTransaction().commit();
-               
-            if(usuario != null && !Utils.compararPassword(usuario.getPassword(), password)){
-                usuario = null;
+
+            if (usuario != null) {
+                GregorianCalendar calendar = new GregorianCalendar();
+                usuario.setFechaUltimoLogin(calendar.getTime());
+                session.beginTransaction();
+                session.update(usuario);
+                session.getTransaction().commit();
             }
-            
+
         } catch (Exception e) {
             if (session != null) {
                 session.getTransaction().rollback();
@@ -212,18 +310,18 @@ public class UsuariosDao {
 
         return usuario;
     }
-    
+
     //TODO
-    public boolean logout(String email){
-        
+    public boolean logout(String email) {
+
         boolean loggedout = false;
         Usuarios usuario = null;
         Session session = null;
-        
+
         try {
-        
+
             loggedout = true;
-            
+
         } catch (Exception e) {
             if (session != null) {
                 session.getTransaction().rollback();

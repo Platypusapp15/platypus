@@ -6,16 +6,12 @@
 package services;
 
 import dao.UsuariosDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import model.Usuarios;
-import model.UsuariosTipos;
 
 /**
  *
@@ -23,8 +19,8 @@ import model.UsuariosTipos;
  */
 @Path("usuarios")
 public class UsuariosService {
-    
-//    private final UsuariosDao usuariosDao = new UsuariosDao();
+
+    private final UsuariosDao usuariosDao = new UsuariosDao();
 //     
 //    @GET
 //    @Path("/")
@@ -39,6 +35,17 @@ public class UsuariosService {
 //    public boolean crearUsuario(Usuarios usuario){
 //        return usuariosDao.create(usuario);
 //    }
+//    
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearUsuario(@FormParam("email") String email, 
+                                @FormParam("password") String password,
+                                @FormParam("idTipoUsuario") String idTipoUsuario) {
+        
+        int idTipo = Integer.parseInt(idTipoUsuario);        
+        return usuariosDao.create(email, password, idTipo);
+    }
 //    
 //    @PUT
 //    @Path("/")

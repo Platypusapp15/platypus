@@ -7,6 +7,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import model.Usuarios;
 
 /**
@@ -22,6 +24,7 @@ public class LoginService {
 
     @POST
     @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
     public Usuarios login(@FormParam("email") String email,
             @FormParam("password") String password) {
 
@@ -30,6 +33,7 @@ public class LoginService {
     
     @POST
     @Path("/logout")
+    @Produces(MediaType.APPLICATION_JSON)
     public boolean logout(@FormParam("email") String email){
         
         return usuariosDao.logout("email");

@@ -31,6 +31,7 @@ dao\RestaurantesDao.class
 dao\ReservasDao.class
 model\Restaurantes.class
 services\ReservasService.class
+services\LoginService.class
 model\Comentarios.class
 model\RestaurantesLikes.class
 services\RangosService.class

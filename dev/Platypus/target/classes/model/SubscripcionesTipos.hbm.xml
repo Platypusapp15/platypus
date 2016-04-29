@@ -1,32 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="platypus" name="model.SubscripcionesTipos" optimistic-lock="version" table="subscripciones_tipos">
-    <id name="id" type="int">
-      <column name="id"/>
-      <generator class="assigned"/>
-    </id>
-    <property name="nombre" type="string">
-      <column length="100" name="nombre" not-null="true"/>
-    </property>
-    <property name="dias" type="int">
-      <column name="dias" not-null="true"/>
-    </property>
-    <property name="precio" type="float">
-      <column name="precio" not-null="true" precision="12" scale="0"/>
-    </property>
-    <set fetch="select" inverse="true" lazy="true" name="subscripcioneses" table="subscripciones">
-      <key>
-        <column name="id_tipoSubscripcion" not-null="true"/>
-      </key>
-      <one-to-many class="model.Subscripciones"/>
-    </set>
-    
-    <!-- Named queries -->
-    <sql-query name="getAll">
-        <![CDATA[select * from SubscripcionesTipos s]]>
-    </sql-query>
-    
-  </class>
+    <class name="model.SubscripcionesTipos" table="subscripciones_tipos" catalog="platypus_2_1" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="100" not-null="true" />
+        </property>
+        <property name="dias" type="int">
+            <column name="dias" not-null="true" />
+        </property>
+        <property name="precio" type="float">
+            <column name="precio" precision="12" scale="0" not-null="true" />
+        </property>
+<!--        <set name="subscripcioneses" table="subscripciones" inverse="true" lazy="true" fetch="join">
+            <key>
+                <column name="id_tipoSubscripcion" not-null="true" />
+            </key>
+            <one-to-many class="model.Subscripciones" />
+        </set>-->
+    </class>
 </hibernate-mapping>

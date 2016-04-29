@@ -16,6 +16,10 @@
         <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
     </servlet>
     
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    
     <servlet-mapping>
         <servlet-name>Resteasy</servlet-name>
         <url-pattern>/*</url-pattern>

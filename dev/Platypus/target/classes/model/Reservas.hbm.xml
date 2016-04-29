@@ -1,36 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 13-mar-2016 20:56:29 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="platypus" name="model.Reservas" optimistic-lock="version" table="reservas">
-    <composite-id class="model.ReservasId" name="id">
-      <key-property name="idUsuario" type="int">
-        <column name="id_usuario"/>
-      </key-property>
-      <key-property name="idRestaurante" type="int">
-        <column name="id_restaurante"/>
-      </key-property>
-      <key-property name="fecha" type="timestamp">
-        <column length="19" name="fecha"/>
-      </key-property>
-    </composite-id>
-    <many-to-one class="model.Restaurantes" fetch="select" insert="false" name="restaurantes" update="false">
-      <column name="id_restaurante" not-null="true"/>
-    </many-to-one>
-    <many-to-one class="model.Usuarios" fetch="select" insert="false" name="usuarios" update="false">
-      <column name="id_usuario" not-null="true"/>
-    </many-to-one>
-    <property name="numPersonas" type="int">
-      <column name="numPersonas" not-null="true"/>
-    </property>
-    <property name="confirmada" type="java.lang.Boolean">
-      <column name="confirmada"/>
-    </property>
-    
-    <!-- Named queries -->
-    <sql-query name="getAll">
-        <![CDATA[select * from Reservas r]]>
-    </sql-query>
-    
-  </class>
+    <class name="model.Reservas" table="reservas" catalog="platypus_2_1" optimistic-lock="version">
+        <composite-id name="id" class="model.ReservasId">
+            <key-property name="idUsuario" type="int">
+                <column name="id_usuario" />
+            </key-property>
+            <key-property name="idRestaurante" type="int">
+                <column name="id_restaurante" />
+            </key-property>
+            <key-property name="fecha" type="timestamp">
+                <column name="fecha" length="19" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="restaurantes" class="model.Restaurantes" update="false" insert="false" fetch="join">
+            <column name="id_restaurante" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usuarios" class="model.Usuarios" update="false" insert="false" fetch="join">
+            <column name="id_usuario" not-null="true" />
+        </many-to-one>
+        <property name="numPersonas" type="int">
+            <column name="numPersonas" not-null="true" />
+        </property>
+        <property name="confirmada" type="java.lang.Boolean">
+            <column name="confirmada" />
+        </property>
+    </class>
 </hibernate-mapping>
