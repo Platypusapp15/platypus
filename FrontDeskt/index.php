@@ -45,7 +45,7 @@
 
 
 </head>
-<body >
+<body ng-app="myApp">
 <div id="page">
 	<header class="lp-header-bg">
 	<!--==================================Cabezera=================================-->

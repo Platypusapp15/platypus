@@ -22,7 +22,7 @@
 
 
 <div class="md-modal md-effect-3" id="modal-3">
-	<div class="login-form-popup lp-border-radius-8" ng-app="formExample">
+	<div class="login-form-popup lp-border-radius-8">
 		<div class="siginincontainer" ng-controller="ExampleController">
 			<h1 class="text-center"><?php echo SIGN_IN;?></h1>
 			<form class="form-horizontal margin-top-30"  method="post">
@@ -137,6 +137,14 @@
 
 
 <script>
+var app = angular.module("myApp", []);
+
+	app.controller('MainController', ['$scope', function($scope) { 
+	  $scope.title = 'Top Sellers in Books'; 
+	}]);
+
+
+
     angular.module('formExample', [])
       .controller('ExampleController', ['$scope', function($scope) {
         $scope.master = {};

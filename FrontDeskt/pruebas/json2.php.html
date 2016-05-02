@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>AJAX with Servlets using AngularJS</title>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+</head>
+<body>
+	<div data-ng-app="myApp">
+		<div data-ng-controller="MyController">
+			<p>First Name : {{person.name}}</p>
+			<p>Last Name : {{person.pass}}</p>
+		</div>
+	</div>
+
+<?php
+// From: http://coursesweb.net/php-mysql/
+ $file = 'person.txt'; 
+ // path and name of the file 
+ //check if the file exists
+ if(file_exists($file)) 
+ {
+ 	echo $file .' file exists';
+ 	$filedata = file_get_contents($file);
+ /* Or, you can add directly the string:
+ $filedata = '{"url": "http://coursesweb.net/", "category": "WebDevelopment", "nr_pages": 400}';*/
+
+ // converts the string into an Object of the stdClass class
+ $objson = json_decode($filedata, true);
+
+ echo '<br/>'. $objson.person.name .' - '. $name;
+ // traverse the object, and outputs each property and its value
+ foreach($objson AS $person => $name) 
+ 	{
+ 		echo '<br/>'. $person .' - '. $name;}
+	}
+ else echo $file .' not exists';
+ ?>
+
+
+</body>
+</html>

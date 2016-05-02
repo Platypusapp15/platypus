@@ -1,0 +1,6 @@
+user = {
+	"email": "a@a.com"
+	"name": "root",
+  	"pass": "root",
+
+}
