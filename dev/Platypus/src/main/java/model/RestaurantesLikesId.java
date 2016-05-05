@@ -1,5 +1,6 @@
 package model;
-// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
+// Generated 05-may-2016 12:10:04 by Hibernate Tools 4.3.1
+
 
 
 /**
@@ -33,6 +34,7 @@ public class RestaurantesLikesId  implements java.io.Serializable {
     public void setIdRestaurante(int idRestaurante) {
         this.idRestaurante = idRestaurante;
     }
+
 
    public boolean equals(Object other) {
          if ( (this == other ) ) return true;

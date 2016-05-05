@@ -1,5 +1,5 @@
 package model;
-// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
+// Generated 05-may-2016 12:10:04 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -23,6 +23,8 @@ public class Restaurantes  implements java.io.Serializable {
      private Date horaApertura;
      private Date horaCierre;
      private Integer telefono;
+     private String coordenadas;
+     private String imgUrl;
      private Set comentarioses = new HashSet(0);
      private Set restaurantesLikeses = new HashSet(0);
      private Set reservases = new HashSet(0);
@@ -39,7 +41,7 @@ public class Restaurantes  implements java.io.Serializable {
         this.usuarios = usuarios;
         this.nombre = nombre;
     }
-    public Restaurantes(Direcciones direcciones, RestaurantesTipos restaurantesTipos, Usuarios usuarios, String nombre, String descripcion, String emailCorporativo, Integer plazas, Date horaApertura, Date horaCierre, Integer telefono, Set comentarioses, Set restaurantesLikeses, Set reservases, Set subscripcioneses, Set consultases) {
+    public Restaurantes(Direcciones direcciones, RestaurantesTipos restaurantesTipos, Usuarios usuarios, String nombre, String descripcion, String emailCorporativo, Integer plazas, Date horaApertura, Date horaCierre, Integer telefono, String coordenadas, String imgUrl, Set comentarioses, Set restaurantesLikeses, Set reservases, Set subscripcioneses, Set consultases) {
        this.direcciones = direcciones;
        this.restaurantesTipos = restaurantesTipos;
        this.usuarios = usuarios;
@@ -50,6 +52,8 @@ public class Restaurantes  implements java.io.Serializable {
        this.horaApertura = horaApertura;
        this.horaCierre = horaCierre;
        this.telefono = telefono;
+       this.coordenadas = coordenadas;
+       this.imgUrl = imgUrl;
        this.comentarioses = comentarioses;
        this.restaurantesLikeses = restaurantesLikeses;
        this.reservases = reservases;
@@ -133,6 +137,20 @@ public class Restaurantes  implements java.io.Serializable {
     
     public void setTelefono(Integer telefono) {
         this.telefono = telefono;
+    }
+    public String getCoordenadas() {
+        return this.coordenadas;
+    }
+    
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+    public String getImgUrl() {
+        return this.imgUrl;
+    }
+    
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
     public Set getComentarioses() {
         return this.comentarioses;

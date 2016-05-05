@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 05-may-2016 12:10:07 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Rangos" table="rangos" catalog="platypus_2_1" optimistic-lock="version">
+    <class name="model.Rangos" table="rangos" catalog="platypus_3" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
@@ -14,7 +14,7 @@
         <property name="puntosNecesarios" type="int">
             <column name="puntosNecesarios" not-null="true" />
         </property>
-<!--        <set name="usuarioses" table="usuarios" inverse="true" lazy="true" fetch="join">
+<!--        <set name="usuarioses" table="usuarios" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_rango" not-null="true" />
             </key>

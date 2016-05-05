@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 05-may-2016 12:10:07 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Comentarios" table="comentarios" catalog="platypus_2_1" optimistic-lock="version">
+    <class name="model.Comentarios" table="comentarios" catalog="platypus_3" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="comentarios" class="model.Comentarios" fetch="join">
+        <many-to-one name="comentarios" class="model.Comentarios" fetch="select">
             <column name="id_comentario">
                 <comment>Para indicar si un comentario es respuesta de otro</comment>
             </column>
         </many-to-one>
-        <many-to-one name="restaurantes" class="model.Restaurantes" fetch="join">
+        <many-to-one name="restaurantes" class="model.Restaurantes" fetch="select">
             <column name="id_restaurante" not-null="true" />
         </many-to-one>
-        <many-to-one name="usuarios" class="model.Usuarios" fetch="join">
+        <many-to-one name="usuarios" class="model.Usuarios" fetch="select">
             <column name="id_usuario" not-null="true" />
         </many-to-one>
         <property name="comentario" type="string">
@@ -27,7 +27,7 @@
                 <comment>Para ordenar comentarios y controlar actividad en un periodo de tiempo determinado</comment>
             </column>
         </property>
-<!--        <set name="comentarioses" table="comentarios" inverse="true" lazy="true" fetch="join">
+<!--        <set name="comentarioses" table="comentarios" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_comentario">
                     <comment>Para indicar si un comentario es respuesta de otro</comment>
@@ -35,7 +35,7 @@
             </key>
             <one-to-many class="model.Comentarios" />
         </set>
-        <set name="comentariosLikeses" table="comentarios_likes" inverse="true" lazy="true" fetch="join">
+        <set name="comentariosLikeses" table="comentarios_likes" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_comentario" not-null="true" />
             </key>

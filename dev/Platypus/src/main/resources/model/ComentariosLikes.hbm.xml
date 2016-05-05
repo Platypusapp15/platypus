@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 05-may-2016 12:10:07 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.ComentariosLikes" table="comentarios_likes" catalog="platypus_2_1" optimistic-lock="version">
+    <class name="model.ComentariosLikes" table="comentarios_likes" catalog="platypus_3" optimistic-lock="version">
         <composite-id name="id" class="model.ComentariosLikesId">
             <key-property name="idUsuario" type="int">
                 <column name="id_usuario" />
@@ -12,10 +12,10 @@
                 <column name="id_comentario" />
             </key-property>
         </composite-id>
-        <many-to-one name="comentarios" class="model.Comentarios" update="false" insert="false" fetch="join">
+        <many-to-one name="comentarios" class="model.Comentarios" update="false" insert="false" fetch="select">
             <column name="id_comentario" not-null="true" />
         </many-to-one>
-        <many-to-one name="usuarios" class="model.Usuarios" update="false" insert="false" fetch="join">
+        <many-to-one name="usuarios" class="model.Usuarios" update="false" insert="false" fetch="select">
             <column name="id_usuario" not-null="true" />
         </many-to-one>
         <property name="like" type="boolean">

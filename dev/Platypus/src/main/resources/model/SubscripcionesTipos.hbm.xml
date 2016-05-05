@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 05-may-2016 12:10:07 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.SubscripcionesTipos" table="subscripciones_tipos" catalog="platypus_2_1" optimistic-lock="version">
+    <class name="model.SubscripcionesTipos" table="subscripciones_tipos" catalog="platypus_3" optimistic-lock="version">
         <id name="id" type="int">
             <column name="id" />
             <generator class="assigned" />
@@ -17,7 +17,7 @@
         <property name="precio" type="float">
             <column name="precio" precision="12" scale="0" not-null="true" />
         </property>
-<!--        <set name="subscripcioneses" table="subscripciones" inverse="true" lazy="true" fetch="join">
+<!--        <set name="subscripcioneses" table="subscripciones" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_tipoSubscripcion" not-null="true" />
             </key>

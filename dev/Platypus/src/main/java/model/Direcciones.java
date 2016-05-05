@@ -1,5 +1,5 @@
 package model;
-// Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1
+// Generated 05-may-2016 12:10:04 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,12 +12,11 @@ public class Direcciones  implements java.io.Serializable {
 
 
      private Integer id;
+     private City city;
      private String calle;
      private String numero;
-     private String ciudad;
      private String provincia;
      private String cp;
-     private String pais;
      private Set restauranteses = new HashSet(0);
      private Set usuarioses = new HashSet(0);
 
@@ -25,19 +24,17 @@ public class Direcciones  implements java.io.Serializable {
     }
 
 	
-    public Direcciones(String ciudad, String provincia, String cp, String pais) {
-        this.ciudad = ciudad;
+    public Direcciones(City city, String provincia, String cp) {
+        this.city = city;
         this.provincia = provincia;
         this.cp = cp;
-        this.pais = pais;
     }
-    public Direcciones(String calle, String numero, String ciudad, String provincia, String cp, String pais, Set restauranteses, Set usuarioses) {
+    public Direcciones(City city, String calle, String numero, String provincia, String cp, Set restauranteses, Set usuarioses) {
+       this.city = city;
        this.calle = calle;
        this.numero = numero;
-       this.ciudad = ciudad;
        this.provincia = provincia;
        this.cp = cp;
-       this.pais = pais;
        this.restauranteses = restauranteses;
        this.usuarioses = usuarioses;
     }
@@ -48,6 +45,13 @@ public class Direcciones  implements java.io.Serializable {
     
     public void setId(Integer id) {
         this.id = id;
+    }
+    public City getCity() {
+        return this.city;
+    }
+    
+    public void setCity(City city) {
+        this.city = city;
     }
     public String getCalle() {
         return this.calle;
@@ -63,13 +67,6 @@ public class Direcciones  implements java.io.Serializable {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    public String getCiudad() {
-        return this.ciudad;
-    }
-    
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
     public String getProvincia() {
         return this.provincia;
     }
@@ -83,13 +80,6 @@ public class Direcciones  implements java.io.Serializable {
     
     public void setCp(String cp) {
         this.cp = cp;
-    }
-    public String getPais() {
-        return this.pais;
-    }
-    
-    public void setPais(String pais) {
-        this.pais = pais;
     }
     public Set getRestauranteses() {
         return this.restauranteses;
