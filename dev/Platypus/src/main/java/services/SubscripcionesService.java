@@ -6,15 +6,13 @@
 package services;
 
 import dao.SubscripcionesDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import java.util.GregorianCalendar;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Subscripciones;
 import model.SubscripcionesTipos;
 
 /**
@@ -24,7 +22,7 @@ import model.SubscripcionesTipos;
 @Path("subscripciones")
 public class SubscripcionesService {
     
-//    private final SubscripcionesDao subscripcionesDao = new SubscripcionesDao();
+    private final SubscripcionesDao subscripcionesDao = new SubscripcionesDao();
 //        
 //    @GET
 //    @Path("/")
@@ -33,19 +31,29 @@ public class SubscripcionesService {
 //        return subscripcionesDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearSubscripcion(Subscripciones subscripcion){
-//        return subscripcionesDao.create(subscripcion);
-//    }
-//    
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarSubscripcion(Subscripciones subscripcion, Subscripciones updatedSubscripcion){
-//        return subscripcionesDao.update(subscripcion, updatedSubscripcion);
-//    }
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearSubscripcion(@FormParam("idRestaurante") int idRestaurante,
+                                     @FormParam("idTipoSubscripcion") int idTipoSubscripcion,
+                                     @FormParam("day") int day,
+                                     @FormParam("month") int month,
+                                     @FormParam("year") int year){
+        GregorianCalendar cal = new GregorianCalendar(year, month, day);
+        return subscripcionesDao.create(idRestaurante, idTipoSubscripcion, cal.getTime());
+    }
+    
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarSubscripcion(@FormParam("idRestaurante") int idRestaurante,
+                                         @FormParam("idTipoSubscripcion") int idTipoSubscripcion,
+                                         @FormParam("day") int day,
+                                         @FormParam("month") int month,
+                                         @FormParam("year") int year){
+        GregorianCalendar cal = new GregorianCalendar(year, month, day);
+        return subscripcionesDao.update(idRestaurante, idTipoSubscripcion, cal.getTime());
+    }
 //    
 //    @DELETE
 //    @Path("/")
@@ -61,20 +69,25 @@ public class SubscripcionesService {
 //        return subscripcionesDao.getTiposAll();
 //    }
 //    
-//    @POST
-//    @Path("/tipos")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearTipoSubscripcion(SubscripcionesTipos tipo){
-//        return subscripcionesDao.createTipo(tipo);
-//    }
-//    
-//    @PUT
-//    @Path("/tipos")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarTipoSubscripcion(SubscripcionesTipos tipo, SubscripcionesTipos updatedTipo){
-//        return subscripcionesDao.updateTipo(tipo, updatedTipo);
-//    }
-//    
+    @POST
+    @Path("/tipos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearTipoSubscripcion(@FormParam("nombre") String nombre,
+                                         @FormParam("dias") int dias,
+                                         @FormParam("precio") float precio){
+        return subscripcionesDao.createTipo(nombre, dias, precio);
+    }
+    
+    @PUT
+    @Path("/tipos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarTipoSubscripcion(@FormParam("idTipo") int idTipo,
+                                             @FormParam("nombre") String nombre,
+                                             @FormParam("dias") int dias,
+                                             @FormParam("precio") float precio){
+        return subscripcionesDao.updateTipo(idTipo, nombre, dias, precio);
+    }
+    
 //    @DELETE
 //    @Path("/tipos")
 //    @Produces(MediaType.APPLICATION_JSON)

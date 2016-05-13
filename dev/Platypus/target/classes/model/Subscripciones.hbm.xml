@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 21-abr-2016 16:32:05 by Hibernate Tools 4.3.1 -->
+<!-- Generated 11-may-2016 12:59:30 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="model.Subscripciones" table="subscripciones" catalog="platypus_2_1" optimistic-lock="version">
+    <class name="model.Subscripciones" table="subscripciones" catalog="platypus_3" optimistic-lock="version">
         <composite-id name="id" class="model.SubscripcionesId">
             <key-property name="idRestaurante" type="int">
                 <column name="id_restaurante" />

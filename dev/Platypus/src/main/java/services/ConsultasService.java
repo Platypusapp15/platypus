@@ -6,15 +6,11 @@
 package services;
 
 import dao.ConsultasDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Consultas;
 
 /**
  *
@@ -23,8 +19,8 @@ import model.Consultas;
 @Path("consultas")
 public class ConsultasService {
     
-//    private final ConsultasDao consultasDao = new ConsultasDao();
-//    
+    private final ConsultasDao consultasDao = new ConsultasDao();
+    
 //    @GET
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -32,13 +28,14 @@ public class ConsultasService {
 //        return consultasDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearConsulta(Consultas consulta){
-//        return consultasDao.create(consulta);
-//    }
-//    
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearConsulta(@FormParam("idUsuario") int idUsuario,
+                                 @FormParam("idRestaurante") int idRestaurante){
+        return consultasDao.create(idUsuario, idRestaurante);
+    }
+    
 //    @PUT
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)

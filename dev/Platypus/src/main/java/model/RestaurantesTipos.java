@@ -1,5 +1,5 @@
 package model;
-// Generated 05-may-2016 12:10:04 by Hibernate Tools 4.3.1
+// Generated 11-may-2016 12:59:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class RestaurantesTipos  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private String nombre;
      private Set restauranteses = new HashSet(0);
 
@@ -19,21 +19,19 @@ public class RestaurantesTipos  implements java.io.Serializable {
     }
 
 	
-    public RestaurantesTipos(int id, String nombre) {
-        this.id = id;
+    public RestaurantesTipos(String nombre) {
         this.nombre = nombre;
     }
-    public RestaurantesTipos(int id, String nombre, Set restauranteses) {
-       this.id = id;
+    public RestaurantesTipos(String nombre, Set restauranteses) {
        this.nombre = nombre;
        this.restauranteses = restauranteses;
     }
    
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNombre() {

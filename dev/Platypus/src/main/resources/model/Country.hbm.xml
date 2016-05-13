@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-may-2016 12:59:30 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Country" table="country" catalog="platypus_3" optimistic-lock="version">
+        <id name="code" type="string">
+            <column name="Code" length="3" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name" length="52" not-null="true" />
+        </property>
+        <property name="continent" type="string">
+            <column name="Continent" length="13" not-null="true" />
+        </property>
+        <property name="region" type="string">
+            <column name="Region" length="26" not-null="true" />
+        </property>
+        <property name="localName" type="string">
+            <column name="LocalName" length="45" not-null="true" />
+        </property>
+        <property name="capital" type="java.lang.Integer">
+            <column name="Capital" />
+        </property>
+        <property name="code2" type="string">
+            <column name="Code2" length="2" not-null="true" />
+        </property>
+<!--        <set name="countryLanguages" table="country_language" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" length="3" not-null="true" />
+            </key>
+            <one-to-many class="model.CountryLanguage" />
+        </set>
+        <set name="cities" table="city" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CountryCode" length="3" not-null="true" />
+            </key>
+            <one-to-many class="model.City" />
+        </set>-->
+    </class>
+</hibernate-mapping>

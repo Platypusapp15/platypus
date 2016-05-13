@@ -6,16 +6,13 @@
 package services;
 
 import dao.RestaurantesDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import java.util.GregorianCalendar;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Restaurantes;
-import model.RestaurantesTipos;
 
 /**
  *
@@ -24,8 +21,8 @@ import model.RestaurantesTipos;
 @Path("restaurantes")
 public class RestaurantesService {
     
-//    private final RestaurantesDao restaurantesDao = new RestaurantesDao();
-//    
+    private final RestaurantesDao restaurantesDao = new RestaurantesDao();
+    
 //    @GET
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -33,19 +30,55 @@ public class RestaurantesService {
 //        return restaurantesDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearRestaurante(Restaurantes restaurante){
-//        return restaurantesDao.create(restaurante);
-//    }
-//    
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarRestaurante(Restaurantes restaurante, Restaurantes updatedRestaurante){
-//        return restaurantesDao.update(restaurante, updatedRestaurante);
-//    }
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearRestaurante(@FormParam("idUsuario") int idUsuario,
+                                    @FormParam("nombre") String nombre, 
+                                    @FormParam("idDireccion") int idDireccion, 
+                                    @FormParam("idTipo") int idTipo, 
+                                    @FormParam("descripcion") String descripcion, 
+                                    @FormParam("email") String email, 
+                                    @FormParam("plazas") int plazas, 
+                                    @FormParam("horaApertura") String horaApertura, 
+                                    @FormParam("horaCierre") String horaCierre, 
+                                    @FormParam("telefono") int telefono, 
+                                    @FormParam("coordenadas") String coordenadas, 
+                                    @FormParam("imgUrl") String imgUrl){
+        String[] hApertura = horaApertura.split(":");
+        String[] hCierre = horaCierre.split(":");
+        
+        GregorianCalendar calApertura = new GregorianCalendar(2000, 01, 01, Integer.parseInt(hApertura[0]), Integer.parseInt(hApertura[1]));
+        GregorianCalendar calCierre = new GregorianCalendar(2000, 01, 01, Integer.parseInt(hCierre[0]), Integer.parseInt(hCierre[1]));
+        
+        return restaurantesDao.create(idUsuario, nombre, idDireccion, idTipo, descripcion, email, plazas, calApertura.getTime(), calCierre.getTime(), telefono, coordenadas, imgUrl);
+    }
+    
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarRestaurante(@FormParam("idRestaurante") int idRestaurante,
+                                        @FormParam("idUsuario") int idUsuario,
+                                        @FormParam("nombre") String nombre, 
+                                        @FormParam("idDireccion") int idDireccion, 
+                                        @FormParam("idTipo") int idTipo, 
+                                        @FormParam("descripcion") String descripcion, 
+                                        @FormParam("email") String email, 
+                                        @FormParam("plazas") int plazas, 
+                                        @FormParam("horaApertura") String horaApertura, 
+                                        @FormParam("horaCierre") String horaCierre, 
+                                        @FormParam("telefono") int telefono, 
+                                        @FormParam("coordenadas") String coordenadas, 
+                                        @FormParam("imgUrl") String imgUrl){
+        
+        String[] hApertura = horaApertura.split(":");
+        String[] hCierre = horaCierre.split(":");
+        
+        GregorianCalendar calApertura = new GregorianCalendar(2000, 01, 01, Integer.parseInt(hApertura[0]), Integer.parseInt(hApertura[1]));
+        GregorianCalendar calCierre = new GregorianCalendar(2000, 01, 01, Integer.parseInt(hCierre[0]), Integer.parseInt(hCierre[1]));
+        
+        return restaurantesDao.update(idRestaurante, idUsuario, nombre, idDireccion, idTipo, descripcion, email, plazas, calApertura.getTime(), calCierre.getTime(), telefono, coordenadas, imgUrl);
+    }
 //    
 //    @DELETE
 //    @Path("/")
@@ -61,19 +94,20 @@ public class RestaurantesService {
 //        return restaurantesDao.getTiposAll();
 //    }
 //    
-//    @POST
-//    @Path("/tipos")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearTipoRestaurante(RestaurantesTipos tipo){
-//        return restaurantesDao.createTipo(tipo);
-//    }
-//    
-//    @PUT
-//    @Path("/tipos")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarTipoRestaurante(RestaurantesTipos tipo, RestaurantesTipos updatedTipo){
-//        return restaurantesDao.updateTipo(tipo, updatedTipo);
-//    }
+    @POST
+    @Path("/tipos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearTipoRestaurante(@FormParam("nombre") String nombre){
+        return restaurantesDao.createTipo(nombre);
+    }
+    
+    @PUT
+    @Path("/tipos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarTipoRestaurante(@FormParam("idTipo") int idTipo,
+                                            @FormParam("nombre") String nombre){
+        return restaurantesDao.updateTipo(idTipo, nombre);
+    }
 //    
 //    @DELETE
 //    @Path("/tipos")

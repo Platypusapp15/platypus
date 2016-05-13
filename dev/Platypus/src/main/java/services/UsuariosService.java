@@ -6,12 +6,13 @@
 package services;
 
 import dao.UsuariosDao;
+import java.util.GregorianCalendar;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Usuarios;
 
 /**
  *
@@ -41,18 +42,27 @@ public class UsuariosService {
     @Produces(MediaType.APPLICATION_JSON)
     public boolean crearUsuario(@FormParam("email") String email, 
                                 @FormParam("password") String password,
-                                @FormParam("idTipoUsuario") String idTipoUsuario) {
+                                @FormParam("tipoUsuario") String tipoUsuario) {
         
-        int idTipo = Integer.parseInt(idTipoUsuario);        
-        return usuariosDao.create(email, password, idTipo);
+        return usuariosDao.create(email, password, tipoUsuario);
     }
-//    
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarUsuario(Usuarios usuario, Usuarios updatedUsuario){
-//        return usuariosDao.update(usuario, updatedUsuario);
-//    }
+    
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarUsuario(@FormParam("id") int id,
+                                    @FormParam("email") String email,
+                                    @FormParam("nombre") String nombre,
+                                    @FormParam("apellido1") String apellido1,
+                                    @FormParam("apellido2") String apellido2,
+                                    @FormParam("sexo") String sexo,
+                                    @FormParam("day") int day,
+                                    @FormParam("month") int month,
+                                    @FormParam("year") int year,
+                                    @FormParam("idDireccion") int idDireccion){
+        GregorianCalendar fechaNacimiento = new GregorianCalendar(year, month, day);
+        return usuariosDao.update(id, email, nombre, apellido1, apellido2, sexo, fechaNacimiento.getTime(), idDireccion);
+    }
 //    
 //    @DELETE
 //    @Path("/")

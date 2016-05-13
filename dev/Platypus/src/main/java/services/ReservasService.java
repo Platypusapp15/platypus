@@ -6,15 +6,12 @@
 package services;
 
 import dao.ReservasDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import java.util.GregorianCalendar;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Reservas;
 
 /**
  *
@@ -23,7 +20,7 @@ import model.Reservas;
 @Path("reservas")
 public class ReservasService {
     
-//    private final ReservasDao reservasDao = new ReservasDao();
+    private final ReservasDao reservasDao = new ReservasDao();
 //    
 //    @GET
 //    @Path("/")
@@ -32,13 +29,19 @@ public class ReservasService {
 //        return reservasDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearReserva(Reservas reserva){
-//        return reservasDao.create(reserva);
-//    }
-//    
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearReserva(@FormParam("idUsuario") int idUsuario,
+                                @FormParam("idRestaurante") int idRestaurante,
+                                @FormParam("year") int year,
+                                @FormParam("month") int month,
+                                @FormParam("day") int day,
+                                @FormParam("numeroPersonas") int numeroPersonas){
+        GregorianCalendar cal = new GregorianCalendar(year, month, day);
+        return reservasDao.create(idUsuario, idRestaurante, cal.getTime(), numeroPersonas);
+    }
+    
 //    @PUT
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)

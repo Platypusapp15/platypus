@@ -1,5 +1,5 @@
 package model;
-// Generated 05-may-2016 12:10:04 by Hibernate Tools 4.3.1
+// Generated 11-may-2016 12:59:30 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class SubscripcionesTipos  implements java.io.Serializable {
 
 
-     private int id;
+     private Integer id;
      private String nombre;
      private int dias;
      private float precio;
@@ -21,25 +21,23 @@ public class SubscripcionesTipos  implements java.io.Serializable {
     }
 
 	
-    public SubscripcionesTipos(int id, String nombre, int dias, float precio) {
-        this.id = id;
+    public SubscripcionesTipos(String nombre, int dias, float precio) {
         this.nombre = nombre;
         this.dias = dias;
         this.precio = precio;
     }
-    public SubscripcionesTipos(int id, String nombre, int dias, float precio, Set subscripcioneses) {
-       this.id = id;
+    public SubscripcionesTipos(String nombre, int dias, float precio, Set subscripcioneses) {
        this.nombre = nombre;
        this.dias = dias;
        this.precio = precio;
        this.subscripcioneses = subscripcioneses;
     }
    
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getNombre() {

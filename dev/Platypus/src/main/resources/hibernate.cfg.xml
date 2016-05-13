@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/platypus_2_1</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">root</property>
-    <property name="hibernate.c3p0.min_size">5</property>
-    <property name="hibernate.c3p0.max_size">20</property>
-    <property name="hibernate.c3p0.timeout">1800</property>
-    <property name="hibernate.c3p0.max_statements">50</property>
-    <!-- Esto hará que se muestren las sentencias SQL en consola -->
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <!-- Relaciones entre ficheros de mapeo de tablas y las clases que las representan -->
-    <property name="hibernate.max_fetch_depth">3</property>
-    <mapping class="model.Restaurantes" resource="model/Restaurantes.hbm.xml"/>
-    <mapping class="model.Usuarios" resource="model/Usuarios.hbm.xml"/>
-    <mapping class="model.SubscripcionesTipos" resource="model/SubscripcionesTipos.hbm.xml"/>
-    <mapping class="model.Direcciones" resource="model/Direcciones.hbm.xml"/>
-    <mapping class="model.Comentarios" resource="model/Comentarios.hbm.xml"/>
-    <mapping class="model.Subscripciones" resource="model/Subscripciones.hbm.xml"/>
-    <mapping class="model.Consultas" resource="model/Consultas.hbm.xml"/>
-    <mapping class="model.RestaurantesLikes" resource="model/RestaurantesLikes.hbm.xml"/>
-    <mapping class="model.ComentariosLikes" resource="model/ComentariosLikes.hbm.xml"/>
-    <mapping class="model.RestaurantesTipos" resource="model/RestaurantesTipos.hbm.xml"/>
-    <mapping class="model.UsuariosTipos" resource="model/UsuariosTipos.hbm.xml"/>
-    <mapping class="model.Reservas" resource="model/Reservas.hbm.xml"/>
-    <mapping class="model.Rangos" resource="model/Rangos.hbm.xml"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/platypus_3</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.timeout">30000</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <!-- Esto hará que se muestren las sentencias SQL en consola -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <!-- Relaciones entre ficheros de mapeo de tablas y las clases que las representan -->
+        <property name="hibernate.max_fetch_depth">3</property>
+        <mapping class="model.Restaurantes" resource="model/Restaurantes.hbm.xml"/>
+        <mapping class="model.Usuarios" resource="model/Usuarios.hbm.xml"/>
+        <mapping class="model.SubscripcionesTipos" resource="model/SubscripcionesTipos.hbm.xml"/>
+        <mapping class="model.Direcciones" resource="model/Direcciones.hbm.xml"/>
+        <mapping class="model.Comentarios" resource="model/Comentarios.hbm.xml"/>
+        <mapping class="model.Subscripciones" resource="model/Subscripciones.hbm.xml"/>
+        <mapping class="model.Consultas" resource="model/Consultas.hbm.xml"/>
+        <mapping class="model.RestaurantesLikes" resource="model/RestaurantesLikes.hbm.xml"/>
+        <mapping class="model.ComentariosLikes" resource="model/ComentariosLikes.hbm.xml"/>
+        <mapping class="model.RestaurantesTipos" resource="model/RestaurantesTipos.hbm.xml"/>
+        <mapping class="model.Reservas" resource="model/Reservas.hbm.xml"/>
+        <mapping class="model.Rangos" resource="model/Rangos.hbm.xml"/>
+        <mapping class="model.Country" resource="model/Country.hbm.xml"/>
+        <mapping class="model.CountryLanguage" resource="model/CountryLanguage.hbm.xml"/>
+        <mapping class="model.City" resource="model/City.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>

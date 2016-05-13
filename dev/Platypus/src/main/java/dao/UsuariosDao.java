@@ -6,16 +6,18 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import model.Direcciones;
 import model.Rangos;
 import model.Usuarios;
-import model.UsuariosTipos;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import util.Defs;
 import util.HibernateUtil;
 import util.Utils;
 
@@ -103,17 +105,18 @@ public class UsuariosDao {
 
     /**
      * Crea un usuario en la BD si no existe. Primero buscará si existe el email
-     * en algún registro de la base de datos, de no encontrarlo, obtendrá el
-     * tipo de usuario de la base de datos para relacionarlo con el nuevo
-     * usuario. Aquí se encripta la contraseña antes de ser almacenado el nuevo
+     * en algún registro de la base de datos, de no encontrarlo. 
+     * En caso de no especificar un tipo de usuario, se asumirá que es del tipo Usuario
+     * (no administrador, no restaurante...)
+     * Aquí se encripta la contraseña antes de ser almacenado el nuevo
      * usuario en la base de datos.
      *
      * @param email String correo electrónico a registrar.
      * @param password String contraseña aún sin encriptar.
-     * @param idTipoUsuario int identificador del tipo de usuario a persistir.
+     * @param tipoUsuario String con el valor del tipo de usuario a persistir.
      * @return True or False si la operación ha tenido éxito.
      */
-    public boolean create(String email, String password, int idTipoUsuario) {
+    public boolean create(String email, String password, String tipoUsuario) {
 
         boolean creado = false;
         Usuarios usuario = null;
@@ -125,21 +128,25 @@ public class UsuariosDao {
 
             //Primero comprobamos que el email no existe en la BD
             Criteria criteria = session.createCriteria(Usuarios.class).add(Restrictions.like("email", email));
+            session.getTransaction().commit();
             if (criteria.uniqueResult() == null) {
-                //Obtenemos el tipo de usuario
-                UsuariosTipos tipoUsuario = (UsuariosTipos) session.get(UsuariosTipos.class, idTipoUsuario);
-
+                
+                session.beginTransaction();
                 //Ya que estamos creando un usuario nuevo, asignaremos automáticamente el rango más bajo.
-                Rangos rango = (Rangos) session.get(Rangos.class, 2);
-
-                //Asignamos valores
-                usuario.setEmail(email);
-                usuario.setPassword(Utils.encriptarPassword(password));
-                usuario.setUsuariosTipos(tipoUsuario);
-                usuario.setPuntos(1F);
-                usuario.setRangos(rango);
+                Rangos rango = (Rangos) session.get(Rangos.class, 2); //Editar
+                session.getTransaction().commit();
+                
+                //Si no se indica el tipo de usuario, asumiremos que es un usuario no admonistrador
+                //ni restaurante.
+                if(tipoUsuario.isEmpty() || tipoUsuario.equals("")){
+                    tipoUsuario = Defs.USUARIO_TIPO_USUARIO;
+                }
+                
+                //Creamos el nuevo objeto a persistir en la base de datos.
+                usuario = new Usuarios(rango, email, Utils.encriptarPassword(password), tipoUsuario, 1F);
 
                 //Persistencia de datos
+                session.beginTransaction();
                 session.persist(usuario);
                 session.getTransaction().commit();
                 creado = true;
@@ -171,6 +178,99 @@ public class UsuariosDao {
     public boolean update(Usuarios usuario, Usuarios updatedUsuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    /**
+     * Actualiza los datos de un usuario de la BD. Se comprueban los datos modificados y se actualiza
+     * el usuario con los nuevos datos. Finalmente se guarda la información en la base de datos.
+     * Antes de modificar la dirección se comprobará que esta existe en la base de datos.
+     * 
+     * @param id Identificador del usuario a modificar.
+     * @param email String con el Email del usuario.
+     * @param nombre String con el Nombre del usuario.
+     * @param apellido1 String con el Apellido1 del usuario.
+     * @param apellido2 String con el Apellido2 del usuario.
+     * @param sexo String con el Sexo del usuario.
+     * @param fechaNacimiento Date con la fecha de Nacimiento del usuario.
+     * @param idDireccion Identificador de la dirección del usuario.
+     * @return True or False si la operación ha tenido éxito.
+     */
+    public boolean update(int id, String email, String nombre, String apellido1, String apellido2, String sexo, Date fechaNacimiento, int idDireccion) {
+        
+        boolean actualizado = false;
+        Usuarios usuario = null;
+        Session session = null;
+
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            //Primero comprobamos que el email no existe en la BD
+            Criteria criteria = session.createCriteria(Usuarios.class).add(Restrictions.like("id", id));
+            usuario = (Usuarios) criteria.uniqueResult();
+            session.getTransaction().commit();
+            if (usuario != null) {
+                
+                //Actualizamos valores
+                if(!usuario.getEmail().equals(email)){
+                    usuario.setEmail(email);
+                }
+                if(usuario.getNombre() == null || !usuario.getNombre().equals(nombre)){
+                    usuario.setNombre(nombre);
+                }
+                if(usuario.getApellido1() == null || !usuario.getApellido1().equals(apellido1)){
+                    usuario.setApellido1(apellido1);
+                }
+                if(usuario.getApellido2() == null || !usuario.getApellido2().equals(apellido2)){
+                    usuario.setApellido2(apellido2);
+                }
+                if(usuario.getSexo() == null || !usuario.getSexo().equals(sexo)){
+                    usuario.setSexo(sexo);
+                }
+                if(usuario.getFechaNacimiento() == null || !usuario.getFechaNacimiento().equals(fechaNacimiento)){
+                    usuario.setFechaNacimiento(fechaNacimiento);
+                }
+                
+                //Primero buscamos la nueva dirección en la base de datos antes de asignarla
+                if(idDireccion != Defs.INVALID_DIRECCION_ID){
+                    session.beginTransaction();
+                    criteria = session.createCriteria(Direcciones.class, String.valueOf(idDireccion));
+                    Direcciones dir = (Direcciones) criteria.uniqueResult();
+                    session.getTransaction().commit();
+                    
+                    if(dir != null){
+                        if(usuario.getDirecciones() != null){
+                            if(!usuario.getDirecciones().equals(dir)){
+                                usuario.setDirecciones(dir);
+                            }
+                        }
+                        else{
+                            usuario.setDirecciones(dir);
+                        }
+                    }
+                }
+                
+                session.beginTransaction();
+                
+                //Persistencia de datos
+                session.persist(usuario);
+                session.getTransaction().commit();
+                actualizado = true;
+            }
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+            actualizado = false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return actualizado;
+    }
+    
 
     /**
      * Elimina un usuario de la BD.
@@ -181,50 +281,53 @@ public class UsuariosDao {
     public boolean delete(Usuarios usuario) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     /**
-     * Obtiene todos los tipos de usuario de la BD.
-     *
-     * @return Lista de tipos de usuario de la base de datos.
-     */
-    public List<UsuariosTipos> getTiposAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Crea un tipo de usuario en la BD si no existe.
-     *
-     * @param tipo Objeto tipo de usuario que va a ser creado en la base de
-     * datos.
+     * Elimina un usuario de la BD.
+     * Busca el usuario en la base de datos y comprueba la concordancia de email y password.
+     * Si coinciden, se procederá a eliminar la cuenta.
+     * 
+     * @param email
+     * @param password
      * @return True or False si la operación ha tenido éxito.
      */
-    public boolean createTipo(UsuariosTipos tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean delete(String email, String password) {
+        boolean eliminado = false;
+        Usuarios usuario = null;
+        Session session = null;
+        
+        try {
+            
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            Criteria criteria = session.createCriteria(Usuarios.class)
+                    .add(Restrictions.like("email", email));
+            criteria.add(Restrictions.like("password", Utils.encriptarPassword(password)));
+            usuario = (Usuarios) criteria.uniqueResult();
+            session.getTransaction().commit();
+
+            if (usuario != null) {
+                session.beginTransaction();
+                session.delete(usuario);
+                session.getTransaction().commit();
+                eliminado = true;
+            }
+            
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+            eliminado = false;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return eliminado;
     }
 
-    /**
-     * Actualiza los datos de un tipo de usuario de la BD.
-     *
-     * @param tipo Objeto tipo de usuario que va a ser modificado en la base de
-     * datos.
-     * @param updatedTipo Objeto tipo de usuario modificado a persistir en la
-     * base de datos.
-     * @return True or False si la operación ha tenido éxito.
-     */
-    public boolean updateTipo(UsuariosTipos tipo, UsuariosTipos updatedTipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Elimina un tipo de usuario de la BD.
-     *
-     * @param tipo Objeto tipo de usuario que va a ser eliminado de la base de
-     * datos.
-     * @return True or False si la operación ha tenido éxito.
-     */
-    public boolean deleteTipo(UsuariosTipos tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     /**
      * Busca en la BD un usuario cuyo nombre y/o apellido(s) coinciden con la
@@ -284,7 +387,7 @@ public class UsuariosDao {
 
             Criteria criteria = session.createCriteria(Usuarios.class)
                     .add(Restrictions.like("email", email));
-            criteria.add(Restrictions.like("passord", Utils.encriptarPassword(password)));
+            criteria.add(Restrictions.like("password", Utils.encriptarPassword(password)));
             usuario = (Usuarios) criteria.uniqueResult();
             session.getTransaction().commit();
 
@@ -336,4 +439,6 @@ public class UsuariosDao {
 
         return loggedout;
     }
+
+    
 }

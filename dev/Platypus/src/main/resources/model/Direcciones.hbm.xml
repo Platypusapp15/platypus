@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 05-may-2016 12:10:07 by Hibernate Tools 4.3.1 -->
+<!-- Generated 11-may-2016 12:59:30 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="model.Direcciones" table="direcciones" catalog="platypus_3" optimistic-lock="version">
         <id name="id" type="java.lang.Integer">
@@ -17,8 +17,8 @@
         <property name="numero" type="string">
             <column name="numero" length="100" />
         </property>
-        <property name="provincia" type="string">
-            <column name="provincia" not-null="true" />
+        <property name="poblacion" type="string">
+            <column name="poblacion" not-null="true" />
         </property>
         <property name="cp" type="string">
             <column name="cp" length="100" not-null="true" />

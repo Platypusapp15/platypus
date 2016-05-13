@@ -6,9 +6,7 @@
 package services;
 
 import dao.RangosDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -23,8 +21,8 @@ import model.Rangos;
 @Path("rangos")
 public class RangosService {
     
-//    private final RangosDao rangosDao = new RangosDao();
-//    
+    private final RangosDao rangosDao = new RangosDao();
+    
 //    @GET
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -32,19 +30,22 @@ public class RangosService {
 //        return rangosDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearRango(Rangos rango){
-//        return rangosDao.create(rango);
-//    }
-//    
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarRango(Rangos rango, Rangos updatedRango){
-//        return rangosDao.update(rango, updatedRango);
-//    }
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearRango(@FormParam("nombre") String nombre,
+                              @FormParam("puntosNecesarios") int puntosNecesarios){
+        return rangosDao.create(nombre, puntosNecesarios);
+    }
+    
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarRango(@FormParam("idRango") String idRango,
+                                  @FormParam("nombre") String nombre,
+                                  @FormParam("puntosNecesarios") int puntosNecesarios){
+        return rangosDao.update(idRango, nombre, puntosNecesarios);
+    }
 //    
 //    @DELETE
 //    @Path("/")

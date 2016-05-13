@@ -3,6 +3,8 @@ package util;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -46,5 +48,12 @@ public class Utils {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public static Date sumarDiasFecha(Date fechaInicio, int dias){
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(fechaInicio);
+        cal.add(GregorianCalendar.DAY_OF_MONTH, dias);
+        return cal.getTime();
     }
 }

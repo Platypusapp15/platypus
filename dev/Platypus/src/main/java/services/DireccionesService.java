@@ -6,15 +6,12 @@
 package services;
 
 import dao.DireccionesDao;
-import java.util.List;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import model.Direcciones;
 
 /**
  *
@@ -22,8 +19,8 @@ import model.Direcciones;
  */
 @Path("direcciones")
 public class DireccionesService {
-    
-//    private final DireccionesDao direccionesDao = new DireccionesDao();
+
+    private final DireccionesDao direccionesDao = new DireccionesDao();
 //    
 //    @GET
 //    @Path("/")
@@ -32,19 +29,31 @@ public class DireccionesService {
 //        return direccionesDao.getAll();
 //    }
 //        
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearDireccion(Direcciones direccion){
-//        return direccionesDao.create(direccion);
-//    }
-//        
-//    @PUT
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean modificarDireccion(Direcciones direccion, Direcciones updatedDireccion){
-//        return direccionesDao.update(direccion, updatedDireccion);
-//    }
+
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearDireccion(@FormParam("calle") String calle,
+            @FormParam("numero") int numero,
+            @FormParam("idCiudad") int idCiudad,
+            @FormParam("poblacion") String poblacion,
+            @FormParam("codigoPostal") String codigoPostal) {
+
+        return direccionesDao.create(calle, numero, idCiudad, poblacion, codigoPostal);
+    }
+
+    @PUT
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean modificarDireccion(@FormParam("id") int id,
+            @FormParam("calle") String calle,
+            @FormParam("numero") int numero,
+            @FormParam("idCiudad") int idCiudad,
+            @FormParam("poblacion") String poblacion,
+            @FormParam("codigoPostal") String codigoPostal) {
+
+        return direccionesDao.update(id, calle, numero, idCiudad, poblacion, codigoPostal);
+    }
 //        
 //    @DELETE
 //    @Path("/")
@@ -52,4 +61,14 @@ public class DireccionesService {
 //    public boolean eliminarDireccion(Direcciones direccion){
 //        return direccionesDao.delete(direccion);
 //    }
+
+    @POST
+    @Path("/ciudad")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearCiudad(@FormParam("nombre") String nombre,
+            @FormParam("codPais") String codPais,
+            @FormParam("region") String region) {
+
+        return direccionesDao.createCity(nombre, codPais, region);
+    }
 }

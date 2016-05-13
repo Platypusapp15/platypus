@@ -24,8 +24,8 @@ import model.Comentarios;
 @Path("comentarios")
 public class ComentariosService {
     
-//    private final ComentariosDao comentariosDao = new ComentariosDao();
-//    
+    private final ComentariosDao comentariosDao = new ComentariosDao();
+    
 //    @GET
 //    @Path("/")
 //    @Produces(MediaType.APPLICATION_JSON)
@@ -33,12 +33,15 @@ public class ComentariosService {
 //        return comentariosDao.getAll();
 //    }
 //    
-//    @POST
-//    @Path("/")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public boolean crearComentario(@FormParam("comentario") Comentarios comentario){
-//        return comentariosDao.create(comentario);
-//    }
+    @POST
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean crearComentario(@FormParam("idUsuario") int idUsuario,
+                                   @FormParam("idRestaurante") int idRestaurante,
+                                   @FormParam("comentario") String comentario,
+                                   @FormParam("idComentario") int idComentario){
+        return comentariosDao.create(idUsuario, idRestaurante, comentario, idComentario);
+    }
 //    
 //    @PUT
 //    @Path("/")
