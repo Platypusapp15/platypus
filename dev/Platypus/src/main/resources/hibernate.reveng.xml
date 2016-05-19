@@ -2,19 +2,19 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="platypus_3"/>
+  <table-filter match-name="restaurantes"/>
+  <table-filter match-name="restaurantes_likes"/>
+  <table-filter match-name="subscripciones"/>
   <table-filter match-name="comentarios"/>
   <table-filter match-name="direcciones"/>
-  <table-filter match-name="country"/>
-  <table-filter match-name="subscripciones"/>
-  <table-filter match-name="restaurantes"/>
-  <table-filter match-name="country_language"/>
-  <table-filter match-name="consultas"/>
-  <table-filter match-name="comentarios_likes"/>
-  <table-filter match-name="city"/>
-  <table-filter match-name="restaurantes_likes"/>
   <table-filter match-name="usuarios"/>
-  <table-filter match-name="reservas"/>
-  <table-filter match-name="subscripciones_tipos"/>
+  <table-filter match-name="comentarios_likes"/>
+  <table-filter match-name="consultas"/>
+  <table-filter match-name="country"/>
   <table-filter match-name="restaurantes_tipos"/>
+  <table-filter match-name="city"/>
   <table-filter match-name="rangos"/>
+  <table-filter match-name="subscripciones_tipos"/>
+  <table-filter match-name="reservas"/>
+  <table-filter match-name="country_language"/>
 </hibernate-reverse-engineering>

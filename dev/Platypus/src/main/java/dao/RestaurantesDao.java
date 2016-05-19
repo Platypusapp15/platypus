@@ -308,4 +308,10 @@ public class RestaurantesDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<Restaurantes> buscarRestaurantes(String texto, int idCiudad, String codPais, int idTipo, int valoracion, String horaApertura, String horaCierre) {
+        
+    
+        return null;
+    }
+
 }

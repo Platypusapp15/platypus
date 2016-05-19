@@ -7,12 +7,14 @@ package services;
 
 import dao.RestaurantesDao;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import model.Restaurantes;
 
 /**
  *
@@ -115,4 +117,17 @@ public class RestaurantesService {
 //    public boolean eliminarTipoRestaurante(RestaurantesTipos tipo){
 //        return restaurantesDao.deleteTipo(tipo);
 //    }
+    
+    @POST
+    @Path("/buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Restaurantes> buscarRestaurante(@FormParam("texto") String texto,
+                                                @FormParam("idCiudad") int idCiudad,
+                                                @FormParam("codPais") String codPais,
+                                                @FormParam("idTipo") int idTipo,
+                                                @FormParam("valoracion") int valoracion,
+                                                @FormParam("horaApertura") String horaApertura,
+                                                @FormParam("horaCierre") String horaCierre){
+        return restaurantesDao.buscarRestaurantes(texto, idCiudad, codPais, idTipo, valoracion, horaApertura, horaCierre);
+    }
 }

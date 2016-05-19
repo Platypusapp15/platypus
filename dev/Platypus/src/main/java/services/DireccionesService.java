@@ -6,12 +6,16 @@
 package services;
 
 import dao.DireccionesDao;
+import java.util.List;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import model.City;
+import model.Country;
 
 /**
  *
@@ -62,13 +66,17 @@ public class DireccionesService {
 //        return direccionesDao.delete(direccion);
 //    }
 
-    @POST
-    @Path("/ciudad")
+    @GET
+    @Path("/paises")
     @Produces(MediaType.APPLICATION_JSON)
-    public boolean crearCiudad(@FormParam("nombre") String nombre,
-            @FormParam("codPais") String codPais,
-            @FormParam("region") String region) {
-
-        return direccionesDao.createCity(nombre, codPais, region);
+    public List<Country> getPaises(){
+        return direccionesDao.getListCountry();
+    }
+    
+    @POST
+    @Path("/paises/ciudades")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<City> getCiudadesPais(@FormParam("codPais") String codPais){
+        return direccionesDao.getListCity(codPais);
     }
 }

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.City;
 import model.Country;
@@ -156,53 +157,63 @@ public class DireccionesDao {
     public boolean delete(Direcciones direccion) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public boolean createCity(String nombre, String codPais, String region) {
-
-        boolean creado = false;
-        City city = null;
+    
+    public List<Country> getListCountry(){
+        List<Country> paises = new ArrayList<>();
         Session session = null;
 
         try {
             session = sessionFactory.openSession();
-
             session.beginTransaction();
-            Criteria criteria = session.createCriteria(Country.class).add(Restrictions.like("code", codPais));
-            Country country = (Country) criteria.uniqueResult();
+            Criteria critera = session.createCriteria(Country.class);
+            paises = critera.list();
             session.getTransaction().commit();
-
-            if (country != null) {
-
-                //Comprobamos que este no existe ya en la base de datos.
-                session.beginTransaction();
-                criteria = session.createCriteria(City.class).add(Restrictions.like("name", nombre).ignoreCase());
-                city = (City) criteria.uniqueResult();
-                session.getTransaction().commit();
-
-                if (city == null) {
-                    //Creamos el nuevo objeto a persistir en la base de datos.
-                    city = new City(country, nombre, region, Defs.INVALID_POPULATION);
-
-                    //Persistencia de datos
-                    session.beginTransaction();
-                    session.persist(city);
-                    session.getTransaction().commit();
-                    creado = true;
-                }
-            }
 
         } catch (Exception e) {
             if (session != null) {
                 session.getTransaction().rollback();
                 System.out.println("\n Error message:\n" + e.getMessage() + "\n");
             }
-            creado = false;
+
         } finally {
             if (session != null) {
                 session.close();
             }
         }
-        return creado;
+        return paises;
     }
+    
+    public List<City> getListCity(String codCountry){
+        List<City> ciudades = new ArrayList<>();
+        Country pais = null;
+        Session session = null;
 
+        try {
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Criteria critera = session.createCriteria(Country.class).add(Restrictions.like("code", codCountry));
+            pais = (Country) critera.uniqueResult();
+            session.getTransaction().commit();
+
+            if(pais != null){
+                session.beginTransaction();
+                critera = session.createCriteria(City.class).add(Restrictions.like("country", pais));
+                ciudades = critera.list();
+                session.getTransaction().commit();
+            }
+            
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+                System.out.println("\n Error message:\n" + e.getMessage() + "\n");
+            }
+
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return ciudades;
+    }
+    
 }
