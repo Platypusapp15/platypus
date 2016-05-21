@@ -133,7 +133,7 @@ public class UsuariosDao {
                 
                 session.beginTransaction();
                 //Ya que estamos creando un usuario nuevo, asignaremos automáticamente el rango más bajo.
-                Rangos rango = (Rangos) session.get(Rangos.class, 2); //Editar
+                Rangos rango = (Rangos) session.get(Rangos.class, 1); //Editar
                 session.getTransaction().commit();
                 
                 //Si no se indica el tipo de usuario, asumiremos que es un usuario no admonistrador
